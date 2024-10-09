@@ -59,7 +59,7 @@ app.get('/materiel/:id', async (req, res) => {
 
 // Route DELETE (avec correction du typo)
 app.delete('/materiel/:id', async (req, res) => {
-    const id = req.params.id; // Assurez-vous d'utiliser des ObjectId si c'est le cas dans MongoDB
+    const id = req.params.id;  
 
     try {
         const result = await collection.deleteOne({ _id: new require('mongodb').ObjectId(id) });
