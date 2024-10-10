@@ -107,7 +107,7 @@
 }
 .objects-list .rezav-button {
   position: fixed;
-  width: 185px;
+  width: 205px;
   justify-content: center;
   transition: all 0.3s ease;
 }
@@ -116,7 +116,7 @@
   bottom: 25px;
 }
 .objects-list .rezav-button.prev-step {
-  right: 225px;
+  right: 245px;
   bottom: 25px;
   background-color: #A55151;
 }/*# sourceMappingURL=card.css.map */

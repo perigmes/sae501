@@ -125,7 +125,7 @@
 
     .rezav-button {
         position: fixed;
-        width: 185px;
+        width: 205px;
         justify-content: center;
         transition: all 0.3s ease;
 
@@ -135,7 +135,7 @@
         }
 
         &.prev-step {
-            right: 225px;
+            right: 245px;
             bottom: 25px;
             background-color: $dark-red-rezav;
         }
