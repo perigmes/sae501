@@ -5,6 +5,9 @@ const demandeSlice = createSlice({
     initialState: {
         objects: [],
         objIsSelectable: true,
+        dataForm: {
+            idSelectedObjects: [],
+        }
     },
     reducers: {
         setObjects: (state, action) => {

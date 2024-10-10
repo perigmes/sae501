@@ -39,7 +39,7 @@ const ObjectCard = ({ object }) => {
     }, []);
 
     return (
-        <div id={`${id}`} className={`object-card ${isSelected ? "selected" : ""}`} data-image-name={picture} onClick={handleClick} style={{ height: `${cardHeight}px`, backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.15) 100%), url(/images/${picture})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+        <div id={`${id}`} className={`object-card ${objIsSelectable ? "selectable" : ""} ${isSelected ? "selected" : ""}`} data-image-name={picture} onClick={handleClick} style={{ height: `${cardHeight}px`, backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.15) 100%), url(/images/${picture})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
             {objIsSelectable && (
                 <>
                     <input className="rezav-checkbox" type="checkbox" id={`checkbox-${id}`} checked={isSelected} onChange={handleCheckboxClick} />
