@@ -26,7 +26,7 @@ const ObjectCard = ({ object }) => {
 
     const resizeCard = () => { // Fonction pour ajuster la hauteur de la carte en fonction de la largeur du parent
         const parentWidth = document.getElementById(id).parentElement.offsetWidth;
-        const newHeight = parentWidth * 0.31;
+        const newHeight = parentWidth * 0.28;
         setCardHeight(Math.min(newHeight, 175));
     };
 

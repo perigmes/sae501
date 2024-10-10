@@ -4,16 +4,20 @@ const demandeSlice = createSlice({
     name: 'demande',
     initialState: {
         objects: [],
-        objIsSelectable: false
+        objIsSelectable: true,
     },
     reducers: {
         setObjects: (state, action) => {
             state.objects = action.payload;
         },
+        setObjIsSelectable: (state) => {
+            state.objIsSelectable = !state.objIsSelectable;
+        },
+        
     }
     // extraReducers: (builder) => {
     // }
 });
-export const { setObjects } = demandeSlice.actions;
+export const { setObjects, setObjIsSelectable } = demandeSlice.actions;
 
 export default demandeSlice.reducer;

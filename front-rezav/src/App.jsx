@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import materielData from './assets/bdd/matériel.materiel.json';
 import { setObjects } from './features/demande/demandeSlice';
 import { selectCategories, selectObjects, selectObjectsByCategory } from './features/demande/demandeSelector';
+import ObjectsByCategory from './components/objectsByCategory';
+import ObjectList from './components/objectList';
 
 function App() {
   const dispatch = useDispatch();
@@ -12,34 +14,12 @@ function App() {
     dispatch(setObjects(materielData));
   }, [dispatch]);
   
-  const object = {
-    "_id": {
-      "$oid": "66e91f52a81b36504c2a5aa2"
-    },
-    "name": "Canon 1000 D",
-    "picture": "test.png",
-    "description": "Un excellent boîtier photo.",
-    "categorie": "Boitiers photo",
-    "isLate": false,
-    "state": "Libre"
-  };
-  const object2 = {
-    "_id": {
-      "$oid": "66e91f52a81b36504c2a5bb2"
-    },
-    "name": "Canon 1000 D",
-    "picture": "test.png",
-    "description": "Un excellent boîtier photo.",
-    "categorie": "Boitiers photo",
-    "isLate": false,
-    "state": "Libre"
-  };
+  
+  const category = "Boitiers photo"
 
   return (
     <div className="App">
-      <ObjectCard object={object} />
-      <ObjectCard object={object2} />
-
+      <ObjectList/>
     </div>
   );
 }

@@ -2,10 +2,12 @@
 .rezav-checkbox {
   display: none;
 }
+
 .rezav-checkbox:checked + .rezav-checkbox-label {
   background-color: #6D6B9E;
 }
-.rezav-checkbox .rezav-checkbox-label {
+
+.rezav-checkbox-label {
   width: 14px;
   height: 14px;
   border: 2px solid #6D6B9E;
@@ -14,10 +16,7 @@
   position: relative;
   cursor: pointer;
 }
-.rezav-checkbox .rezav-checkbox-label:hover {
-  border-color: #000;
-}
-.rezav-checkbox .rezav-checkbox-label::before {
+.rezav-checkbox-label::before {
   content: "";
   position: absolute;
   left: 4px;
@@ -27,5 +26,12 @@
   border: solid white;
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
+  display: block;
+}
+
+.rezav-checkbox:not(:checked) + .rezav-checkbox-label:hover {
+  background-color: rgba(109, 107, 158, 0.2);
+}
+.rezav-checkbox:not(:checked) + .rezav-checkbox-label:hover::before {
   display: none;
 }/*# sourceMappingURL=commun.css.map */

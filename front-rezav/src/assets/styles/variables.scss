@@ -1,5 +1,9 @@
 //Import des polices :
-@import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&display=swap'); // police Cabin
+@import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap'); // import des polices
+
+// Polices : 
+$cabin: "Cabin", sans-serif;
+$main-font: "Montserrat", sans-serif;
 
 // Tailles de polices :
 $font-size-8: 0.5rem;    // 8px
@@ -30,3 +34,4 @@ $font-weight-900: 900;
 
 // Couleurs :
 $mauve-rezav:#6D6B9E;
+$mauve-rezav-20: rgba(109, 107, 158, 0.2);

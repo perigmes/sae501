@@ -1,6 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&display=swap");
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 .object-card {
-  width: 31%;
+  width: 28%;
   max-width: 175px;
   height: auto;
   box-shadow: 0px 1px 7.5px 0px rgba(11, 1, 41, 0.35);
@@ -26,4 +27,46 @@
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
+}
+.object-card.selected {
+  outline: solid 2px #6D6B9E;
+}
+
+.category-title {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  font-size: 1.5rem;
+  margin: 20px 0;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #6D6B9E;
+  text-transform: uppercase;
+}
+.category-title::after, .category-title::before {
+  content: "";
+  flex: 1;
+  border-bottom: 2px solid #6D6B9E;
+  margin: 0 10px;
+}
+.category-title::after {
+  width: auto; /* Trait qui prend tout l'espace restant à droite */
+}
+.category-title::before {
+  width: 7%; /* Trait fixe de 100px à gauche */
+  flex: none; /* Empêche l'extension */
+}
+
+.category-container {
+  width: 100%;
+  height: -moz-fit-content;
+  height: fit-content;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  gap: 20px;
+  padding: 0;
+  margin: 0;
 }/*# sourceMappingURL=card.css.map */
