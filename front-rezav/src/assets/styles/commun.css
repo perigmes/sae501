@@ -1,0 +1,31 @@
+@import url("https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&display=swap");
+.rezav-checkbox {
+  display: none;
+}
+.rezav-checkbox:checked + .rezav-checkbox-label {
+  background-color: #6D6B9E;
+}
+.rezav-checkbox .rezav-checkbox-label {
+  width: 14px;
+  height: 14px;
+  border: 2px solid #6D6B9E;
+  border-radius: 4px;
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+}
+.rezav-checkbox .rezav-checkbox-label:hover {
+  border-color: #000;
+}
+.rezav-checkbox .rezav-checkbox-label::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 0px;
+  width: 4px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  display: none;
+}/*# sourceMappingURL=commun.css.map */

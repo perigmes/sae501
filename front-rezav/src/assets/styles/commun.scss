@@ -1,0 +1,38 @@
+@import 'variables';
+
+.rezav-checkbox {
+    display: none;
+
+    &:checked+.rezav-checkbox-label {
+        background-color: $mauve-rezav;
+    }
+
+    .rezav-checkbox-label {
+        width: 14px;
+        height: 14px;
+        border: 2px solid $mauve-rezav;
+        border-radius: 4px;
+        display: inline-block;
+        position: relative;
+        cursor: pointer;
+
+        &:hover {
+            border-color: #000;
+        }
+
+        &::before {
+            content: '';
+            position: absolute;
+            left: 4px;
+            top: 0px;
+            width: 4px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+            display: none;
+        }
+
+    }
+}
+

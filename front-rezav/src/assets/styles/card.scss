@@ -1,0 +1,29 @@
+@import 'variables';
+
+.object-card {
+    width: 31%;
+    max-width: 175px;
+    height: auto;
+    box-shadow: 0px 1px 7.5px 0px rgba(11, 1, 41, 0.35);
+    border-radius: 8px;
+    padding: 5px;
+    position: relative;
+    display: flex;
+    cursor: pointer;
+    align-items: end;
+    justify-content: left;
+
+    label {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+    }
+    span {
+        font-family: "Cabin", sans-serif;
+        font-size: $font-size-14;
+        font-weight: $font-weight-600;
+        text-transform: uppercase;
+        color: $mauve-rezav;
+        user-select: none;
+    }
+}

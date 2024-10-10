@@ -1,0 +1,29 @@
+@import url("https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&display=swap");
+.object-card {
+  width: 31%;
+  max-width: 175px;
+  height: auto;
+  box-shadow: 0px 1px 7.5px 0px rgba(11, 1, 41, 0.35);
+  border-radius: 8px;
+  padding: 5px;
+  position: relative;
+  display: flex;
+  cursor: pointer;
+  align-items: end;
+  justify-content: left;
+}
+.object-card label {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+.object-card span {
+  font-family: "Cabin", sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #6D6B9E;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}/*# sourceMappingURL=card.css.map */
