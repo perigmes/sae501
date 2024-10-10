@@ -1,0 +1,35 @@
+@import 'variables';
+
+// CSS des checkbox de l'application REZAV
+
+.rezav-checkbox {
+    display: none;
+}
+
+.rezav-checkbox-label {
+    width: 20px;
+    height: 20px;
+    border: 2px solid $mauve-rezav;
+    border-radius: 4px;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.rezav-checkbox:checked+.rezav-checkbox-label {
+    background-color: $mauve-rezav;
+}
+
+.rezav-checkbox:checked+.rezav-checkbox-label::after {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 8px;
+    width: 4px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    display: block;
+}

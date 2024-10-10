@@ -1,24 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+// src/App.jsx
+import React, { useEffect } from 'react';
+import ObjectCard from './components/objectCard';
+import { useDispatch } from 'react-redux';
+import materielData from './assets/bdd/matériel.materiel.json';
+import { setObjects } from './features/demande/demandeSlice';
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setObjects(materielData));
+  }, [dispatch]);
+
+  const object = {
+    "_id": {
+      "$oid": "66e91f52a81b36504c2a5aa2"
+    },
+    "name": "Canon 1000 D",
+    "picture": "",
+    "description": "Un excellent boîtier photo.",
+    "categorie": "Boitiers photo",
+    "isLate": false,
+    "state": "Libre"
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <p>Ceci est un test</p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ObjectCard object={object} />
+
     </div>
   );
 }
