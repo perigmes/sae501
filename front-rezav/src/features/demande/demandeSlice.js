@@ -4,7 +4,7 @@ const demandeSlice = createSlice({
     name: 'demande',
     initialState: {
         objects: [],
-        objIsSelectable: true,
+        objIsSelectable: false,
         dataForm: {
             idSelectedObjects: [],
         }
@@ -16,11 +16,27 @@ const demandeSlice = createSlice({
         setObjIsSelectable: (state) => {
             state.objIsSelectable = !state.objIsSelectable;
         },
+        setIdSelectedObjects: (state, action) => {
+            state.dataForm.idSelectedObjects = action.payload;
+        },
+        selectObject: (state, action) => {
+            const id = action.payload;
+            if (!state.dataForm.idSelectedObjects.includes(id)) {
+                state.dataForm.idSelectedObjects.push(id);
+            }
+        },
+        deselectObject: (state, action) => {
+            const id = action.payload;
+            state.dataForm.idSelectedObjects = state.dataForm.idSelectedObjects.filter(selectedId => selectedId !== id);
+        },
+        clearObjectSelections: (state) => {
+            state.dataForm.idSelectedObjects = [];
+        }
         
     }
     // extraReducers: (builder) => {
     // }
 });
-export const { setObjects, setObjIsSelectable } = demandeSlice.actions;
+export const { setObjects, setObjIsSelectable, setIdSelectedObjects, selectObject, deselectObject, clearObjectSelections } = demandeSlice.actions;
 
 export default demandeSlice.reducer;

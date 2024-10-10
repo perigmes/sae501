@@ -1,12 +1,11 @@
 // src/App.jsx
 import React, { useEffect } from 'react';
-import ObjectCard from './components/objectCard';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import materielData from './assets/bdd/matériel.materiel.json';
 import { setObjects } from './features/demande/demandeSlice';
-import { selectCategories, selectObjects, selectObjectsByCategory } from './features/demande/demandeSelector';
-import ObjectsByCategory from './components/objectsByCategory';
 import ObjectList from './components/objectList';
+import './assets/styles/commun.css';
+import './assets/styles/card.css';
 
 function App() {
   const dispatch = useDispatch();
@@ -15,8 +14,6 @@ function App() {
   }, [dispatch]);
   
   
-  const category = "Boitiers photo"
-
   return (
     <div className="App">
       <ObjectList/>

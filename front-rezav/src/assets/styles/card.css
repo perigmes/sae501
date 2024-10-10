@@ -27,6 +27,9 @@
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .object-card.selectable:hover {
   outline: solid 2px rgba(109, 107, 158, 0.2);
@@ -59,20 +62,19 @@
   align-items: center;
   text-align: center;
   position: relative;
-  font-size: 1.5rem;
-  margin: 20px 0;
   font-family: "Montserrat", sans-serif;
   font-weight: 600;
   font-size: 1rem;
   color: #6D6B9E;
   text-transform: uppercase;
+  gap: 5px;
+  margin: 5px 0;
 }
 .category-title::after, .category-title::before {
   content: "";
   flex: 1;
   border: 1px solid #6D6B9E;
   border-radius: 100px;
-  margin: 0 10px;
 }
 .category-title::after {
   width: auto;
@@ -80,7 +82,6 @@
 .category-title::before {
   width: 7%;
   flex: none;
-  padding: 0;
 }
 
 .category-container {
@@ -91,6 +92,31 @@
   flex-flow: row wrap;
   align-items: center;
   gap: 20px;
-  padding: 0;
   margin: 0;
+  padding: 0 0 15px 0;
+}
+
+.objects-list {
+  width: calc(100% - 50px);
+  height: -moz-fit-content;
+  height: fit-content;
+  display: flex;
+  flex-flow: column;
+  position: relative;
+  padding: 25px;
+}
+.objects-list .rezav-button {
+  position: fixed;
+  width: 185px;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+.objects-list .rezav-button.next-step {
+  right: 25px;
+  bottom: 25px;
+}
+.objects-list .rezav-button.prev-step {
+  right: 225px;
+  bottom: 25px;
+  background-color: #A55151;
 }/*# sourceMappingURL=card.css.map */

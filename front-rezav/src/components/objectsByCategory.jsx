@@ -1,18 +1,17 @@
 import { useSelector } from "react-redux";
-import { selectObjectsByCategory, selectObjIsSelectable } from "../features/demande/demandeSelector";
+import { selectObjects } from "../features/demande/demandeSelector";
 import ObjectCard from './objectCard';
-import '../assets/styles/commun.css';
-import '../assets/styles/card.css';
 
 const ObjectsByCategory = ({ category }) => {
-    const objects = useSelector((state) => selectObjectsByCategory(state, category)); // Récupérer les objets par catégorie
+    const allObjects = useSelector(selectObjects); // Récupère tous les objets
+    const objects = [...allObjects].filter(object => object.categorie === category); // trie les objets pour optenir uniquement ceux appartenant à la catégorie
 
     return (
         <>
             <h4 className="category-title">{category}</h4>
             <div className="category-container">
-                {objects.map((object) => (
-                    <ObjectCard object={object} />
+                {[...objects].map((object) => (
+                    <ObjectCard key={object._id.$oid} object={object} />
                 ))}
             </div>
         </>

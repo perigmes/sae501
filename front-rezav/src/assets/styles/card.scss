@@ -29,6 +29,9 @@
         text-transform: uppercase;
         color: $mauve-rezav;
         user-select: none;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     &.selectable:hover {
@@ -52,7 +55,7 @@
 
             label {
                 background-color: $mauve-rezav;
-    
+
                 &::before {
                     display: block;
                 }
@@ -73,13 +76,13 @@
     align-items: center;
     text-align: center;
     position: relative;
-    font-size: 1.5rem;
-    margin: 20px 0;
     font-family: $main-font;
     font-weight: $font-weight-600;
     font-size: $font-size-16;
     color: $mauve-rezav;
     text-transform: uppercase;
+    gap: 5px;
+    margin: 5px 0;
 
     &::after,
     &::before {
@@ -87,7 +90,6 @@
         flex: 1;
         border: 1px solid $mauve-rezav;
         border-radius: 100px;
-        margin: 0 10px;
     }
 
     &::after {
@@ -97,7 +99,6 @@
     &::before {
         width: 7%;
         flex: none;
-        padding: 0;
     }
 }
 
@@ -108,6 +109,35 @@
     flex-flow: row wrap;
     align-items: center;
     gap: 20px;
-    padding: 0;
     margin: 0;
+    padding: 0 0 15px 0;
+}
+
+// CSS pour la liste des objets complète
+
+.objects-list {
+    width: calc(100% - 50px);
+    height: fit-content;
+    display: flex;
+    flex-flow: column;
+    position: relative;
+    padding: 25px;
+
+    .rezav-button {
+        position: fixed;
+        width: 185px;
+        justify-content: center;
+        transition: all 0.3s ease;
+
+        &.next-step {
+            right: 25px;
+            bottom: 25px;
+        }
+
+        &.prev-step {
+            right: 225px;
+            bottom: 25px;
+            background-color: $dark-red-rezav;
+        }
+    }
 }
