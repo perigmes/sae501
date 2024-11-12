@@ -1,13 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
-import { selectObjects, selectObjIsSelectable } from "../features/demande/demandeSelector";
+import { selectObjects, selectObjIsSelectable, selectObjInfos } from "../features/demande/demandeSelector";
 import ObjectsByCategory from "./objectsByCategory";
 import { clearObjectSelections, setObjIsSelectable } from "../features/demande/demandeSlice";
+import ObjectPopup from "./objectPopup";
 
 const ObjectList = () => {
     const dispatch = useDispatch();
     const objects = useSelector(selectObjects); // Récupère tous les objets
     const categories = [...new Set([...objects].map((object) => object.categorie))]; //récupère les categories d'objets
     const objIsSelectable = useSelector(selectObjIsSelectable); // Récupérer l'état indiquant si l'objet est sélectionnable
+    const stateObjInfos = useSelector(selectObjInfos); // Récupérer les informations sur l'objet sélectionné
 
     const handleNextClick = () => { 
         if (!objIsSelectable) {
@@ -27,6 +29,9 @@ const ObjectList = () => {
             ))}
             {objIsSelectable && (
                 <button className="rezav-button prev-step" onClick={handlePrevClick}>Annuler</button>
+            )}
+            {stateObjInfos && Object.keys(stateObjInfos).length > 0 && (
+                <ObjectPopup object={stateObjInfos} />
             )}
             <button className="rezav-button next-step" onClick={handleNextClick}>
                 {objIsSelectable ? "Étape suivante" : <><i className="material-symbols-rounded">shopping_bag</i> Réserver</>}

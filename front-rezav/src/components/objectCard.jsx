@@ -1,18 +1,18 @@
 import { useDispatch, useSelector } from "react-redux";
 import { selectObjIsSelectable, selectSelectedObjects } from "../features/demande/demandeSelector";
 import { useState, useEffect } from "react";
-import { deselectObject, selectObject } from "../features/demande/demandeSlice";
+import { deselectObject, selectObject, setInfoObject } from "../features/demande/demandeSlice";
 
 const ObjectCard = ({ object }) => {
-    const { _id, name, picture } = object; // Décomposer l'objet pour accéder à ses propriétés
+    const { _id, name, picture } = object;
     const id = _id.$oid;
-    const objIsSelectable = useSelector(selectObjIsSelectable); // Récupérer l'état indiquant si les objets sont sélectionnables
-    const selectedObjects = useSelector(selectSelectedObjects); // Récupère tous les objets sélectionnés
-    const isSelected = selectedObjects.includes(id); // Vérifier si l'objet est déjà sélectionné
-    const [cardHeight, setCardHeight] = useState(0); // État pour stocker la hauteur dynamique de la carte
+    const objIsSelectable = useSelector(selectObjIsSelectable);
+    const selectedObjects = useSelector(selectSelectedObjects);
+    const isSelected = selectedObjects.includes(id);
+    const [cardHeight, setCardHeight] = useState(0);
     const dispatch = useDispatch();
 
-    const handleClick = () => { // Fonction pour gérer le clic sur la carte en fonction de la selectionnabilité des objets
+    const handleClick = () => {
         if (objIsSelectable) {
             if (isSelected) {
                 dispatch(deselectObject(id));
@@ -20,23 +20,25 @@ const ObjectCard = ({ object }) => {
                 dispatch(selectObject(id));
             }
         } else {
-            console.log("Autre action ici");
+            dispatch(setInfoObject(object));
         }
     };
 
-    const handleCheckboxClick = (e) => { // Fonction pour gérer le clic sur le checkbox
-        e.stopPropagation();
+    const handleCheckboxChange = (e) => {
+        e.stopPropagation(); // Prévenir la propagation au parent
         handleClick();
     };
 
     useEffect(() => {
         const resizeCard = () => {
-            const parentWidth = document.getElementById(id).parentElement.offsetWidth;
-            const newHeight = parentWidth * 0.28;
+            const parentElement = document.getElementById(id).parentElement;
+            const parentWidth = parentElement.offsetWidth;
+            const parentGap = parseFloat(window.getComputedStyle(parentElement).getPropertyValue('gap'));
+                        const newHeight = parentWidth * 0.33 - (10 + parentGap);
             setCardHeight(Math.min(newHeight, 175));
         };
 
-        resizeCard(); // Appel initial
+        resizeCard();
         window.addEventListener('resize', resizeCard);
 
         return () => {
@@ -45,11 +47,28 @@ const ObjectCard = ({ object }) => {
     }, [id]);
 
     return (
-        <div id={`${id}`} className={`object-card ${objIsSelectable ? "selectable" : ""} ${objIsSelectable && isSelected ? "selected" : ""}`} data-image-name={picture} onClick={handleClick} style={{ height: `${cardHeight}px`, backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.15) 100%), url(/images/${picture})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+        <div 
+            id={`${id}`} 
+            className={`object-card${objIsSelectable ? "selectable" : ""}${objIsSelectable && isSelected ? "selected" : ""}`} 
+            data-image-name={picture} 
+            onClick={(e) => { e.stopPropagation(); handleClick(); }} 
+            style={{ height: `${cardHeight}px`, backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.15) 100%), url(/images/${picture})` }}
+        >
             {objIsSelectable && (
                 <>
-                    <input className="rezav-checkbox" type="checkbox" id={`checkbox-${id}`} checked={isSelected} onChange={handleCheckboxClick} />
-                    <label htmlFor={`checkbox-${id}`} className="rezav-checkbox-label"></label>
+                    <input 
+                        className="rezav-checkbox" 
+                        type="checkbox" 
+                        id={`checkbox-${id}`} 
+                        checked={isSelected} 
+                        onChange={handleCheckboxChange} 
+                        style={{ display: "none" }} 
+                    />
+                    <label 
+                        htmlFor={`checkbox-${id}`} 
+                        className="rezav-checkbox-label" 
+                        onClick={(e) => e.stopPropagation()} // Empêcher la propagation du clic
+                    ></label>
                 </>
             )}
             <span>{name}</span>
