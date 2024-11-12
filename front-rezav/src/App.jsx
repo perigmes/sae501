@@ -15,9 +15,9 @@ function App() {
   
   
   return (
-    <div className="App">
+    <main>
       <ObjectList/>
-    </div>
+    </main>
   );
 }
 

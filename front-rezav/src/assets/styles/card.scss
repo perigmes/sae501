@@ -3,7 +3,7 @@
 // CSS pour la carte
 
 .object-card {
-    width: 28%;
+    width: calc(33% - 30px);
     max-width: 175px;
     height: auto;
     box-shadow: 0px 1px 7.5px 0px rgba(11, 1, 41, 0.35);
@@ -15,6 +15,9 @@
     align-items: end;
     justify-content: left;
     transition: transform 0.3s ease;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 
     label {
         position: absolute;
@@ -117,12 +120,14 @@
 
 .objects-list {
     width: calc(100% - 50px);
-    height: fit-content;
+    height: calc(100% - 50px);
     display: flex;
     flex-flow: column;
     position: relative;
     padding: 25px;
-
+    overflow-y: scroll;
+    overflow-x: hidden;
+    
     .rezav-button {
         position: fixed;
         width: 205px;
@@ -140,4 +145,48 @@
             background-color: $dark-red-rezav;
         }
     }
+}
+
+// CSS pour la popup affichant les informations de l'objet
+
+.objects-list .object-popup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 750px;
+    width: 100%;
+    max-height: 500px;
+    height: 100%;
+    background-color: $white;
+    box-shadow: 0px 1px 7.5px 0px rgba(11, 1, 41, 0.35);
+    border-radius: 8px;
+}
+
+@media only screen and (max-width : 480px) {
+
+// CSS pour la carte et son positionnement en format téléphone
+.category-container {
+        width: 100%;
+        height: fit-content;
+        display: flex;
+        flex-flow: row wrap;
+        align-items: center;
+        gap: 10px;
+        margin: 0;
+        padding: 0 0 10px 0;
+    }
+    .object-card {
+        width: calc(33% - 20px);
+        padding: 2.5px;
+
+        label {
+            top: 2.5px;
+            right: 2.5px;
+        }
+        span {
+            font-size: $font-size-12;
+        }
+    }
+
 }
