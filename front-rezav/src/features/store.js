@@ -1,8 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import filmReducer from './film/filmSlice'
+import demandeReducer from './demande/demandeSlice'
 
 const store = configureStore({
     reducer: {
+        demande: demandeReducer,
     }
 })
 
