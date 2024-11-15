@@ -4,8 +4,8 @@ import { useDispatch } from 'react-redux';
 import materielData from './assets/bdd/matériel.materiel.json';
 import { setObjects } from './features/demande/demandeSlice';
 import ObjectList from './components/objectList';
-import './assets/styles/commun.css';
-import './assets/styles/card.css';
+import './assets/styles/commun.scss';
+import './assets/styles/card.scss';
 
 function App() {
   const dispatch = useDispatch();

@@ -1,4 +1,4 @@
-@import 'variables';
+@use 'variables' as *;
 
 // CSS pour la carte
 
@@ -15,9 +15,9 @@
     align-items: end;
     justify-content: left;
     transition: transform 0.3s ease;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
 
     label {
         position: absolute;
@@ -163,22 +163,24 @@
     border-radius: 8px;
 }
 
-@media only screen and (max-width : 480px) {
+@media only screen and (max-width : 615px) {
 
 // CSS pour la carte et son positionnement en format téléphone
 .category-container {
         width: 100%;
         height: fit-content;
-        display: flex;
-        flex-flow: row wrap;
-        align-items: center;
         gap: 10px;
         margin: 0;
         padding: 0 0 10px 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 20px;
+        grid-template-rows: none;
     }
     .object-card {
-        width: calc(33% - 20px);
+        width: auto;
         padding: 2.5px;
+        overflow: hidden;
 
         label {
             top: 2.5px;
