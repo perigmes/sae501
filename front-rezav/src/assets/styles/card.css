@@ -12,9 +12,9 @@
   align-items: end;
   justify-content: left;
   transition: transform 0.3s ease;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
 }
 .object-card label {
   position: absolute;
@@ -154,6 +154,7 @@
   .object-card {
     width: calc(33% - 20px);
     padding: 2.5px;
+    background-position: center, 0px -5px !important;
   }
   .object-card label {
     top: 2.5px;

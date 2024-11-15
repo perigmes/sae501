@@ -49,11 +49,12 @@ const ObjectCard = ({ object }) => {
     return (
         <div 
             id={`${id}`} 
-            className={`object-card${objIsSelectable ? "selectable" : ""}${objIsSelectable && isSelected ? "selected" : ""}`} 
+            className={`object-card${objIsSelectable ? " selectable" : ""}${objIsSelectable && isSelected ? " selected" : ""}`} 
             data-image-name={picture} 
             onClick={(e) => { e.stopPropagation(); handleClick(); }} 
-            style={{ height: `${cardHeight}px`, backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.15) 100%), url(/images/${picture})` }}
-        >
+            style={{
+                height: `${cardHeight}px`,
+                background: `linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.15) 100%), url(/images/${picture})`}}>
             {objIsSelectable && (
                 <>
                     <input 
