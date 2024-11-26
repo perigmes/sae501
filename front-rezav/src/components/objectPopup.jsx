@@ -8,7 +8,7 @@ const ObjectPopup = () => {
     const closePopup = () => {
             dispatch(setInfoObject({}));
             document.querySelectorAll('.object-card').forEach(card => { card.style.pointerEvents = ''; });
-            document.querySelector('.rezav-button.next-step').style.pointerEvents = '';
+            document.querySelector('.rezav-button-1.next-step').style.pointerEvents = '';
             const rootElement = document.querySelector('#root');
             if (rootElement) {
                 const elementsToBlur = rootElement.querySelectorAll(`:scope *`);

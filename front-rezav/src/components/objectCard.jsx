@@ -33,7 +33,7 @@ const ObjectCard = ({ object }) => {
         } else {
             dispatch(setInfoObject(object));
             document.querySelectorAll('.object-card').forEach(card => { card.style.pointerEvents = 'none'; });
-            document.querySelector('.rezav-button.next-step').style.pointerEvents = 'none';
+            document.querySelector('.rezav-button-1.next-step').style.pointerEvents = 'none';
             const rootElement = document.querySelector('#root');
             if (rootElement) {
                 const elementsToBlur = rootElement.querySelectorAll(`:scope *`);
