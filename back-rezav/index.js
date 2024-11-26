@@ -2,10 +2,13 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
+const fs = require("fs");
+
 const passport = require("passport");
 const session = require("express-session");
 const ObjectId = require("mongodb").ObjectId;
 const cas = require("./cas"); // Importer le fichier CAS
+const path = require("path");
 
 app.use(express.json());
 
@@ -24,41 +27,26 @@ app.use(passport.session());
 
 let db, collection;
 
-// Fonction pour se connecter à MongoDB
-mongoose
-  .connect("mongodb://etudiant:SAE501@localhost:27018/mydatabase", { 
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    authSource: "admin",
-  })
-  .then(() => {
-    console.log("Connected to MongoDB");
-  })
-  .catch((err) => {
-    console.error("Error connecting to MongoDB", err);
+// Définir le répertoire où les fichiers JSON sont stockés
+const jsonFolder = path.join(__dirname, "../assets/data"); // Assurez-vous que 'assets' est le dossier où sont vos fichiers JSON
+
+// Middleware pour analyser les requêtes JSON
+app.use(express.json());
+const filePath = path.join(jsonFolder, "materiel.json"); // Utilisez le bon nom de fichier
+
+
+// GET pour récupérer un fichier le matériel
+app.get("/items", (req, res) => {
+  // Lire le fichier JSON
+  fs.readFile(filePath, "utf8", (err, data) => {
+    if (err) {
+      return res.status(500).json({ error: "Erreur lors de la lecture du fichier" });
+    }
+    
+    // Convertir les données JSON en objet JavaScript
+    const items = JSON.parse(data);
+    res.status(200).json(items); // Envoyer les données en réponse
   });
-
-const itemSchema = new mongoose.Schema({
-  name: String,
-  picture: String,
-  description: String,
-  categorie: String,
-  isLate: Boolean,
-  state: String,
-});
-
-const Item = mongoose.model("Item", itemSchema);
-
-// Route GET pour récupérer tous les documents dans la collection "materiel"
-app.get("/items", async (req, res) => {
-  try {
-    const docs = await Item.find();
-    res.status(200).json(docs);
-  } catch (err) {
-    res
-      .status(500)
-      .json({ error: "Erreur lors de la récupération des documents" });
-  }
 });
 
 // Route GET pour récupérer les documents par nom (regex)
