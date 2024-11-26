@@ -7,11 +7,11 @@ const MainHeader = () => {
     const dispatch = useDispatch();
     const objIsSelectable = useSelector(selectObjIsSelectable); // Récupérer l'état indiquant si l'objet est sélectionnable
     const location = useLocation();
-    
+
     return (
         <header className={`objects-hdr${objIsSelectable ? ' selectable' : ''}`}>
-            <h2 className="page-title">Liste du matériel</h2>
-            {objIsSelectable ? (
+            <h2 className="page-title">{location.pathname === '/list-objects' ? "Liste du matériel" : "Formulaire de réservation"}</h2>
+            {location.pathname === '/list-objects' && objIsSelectable && (
                 <>
                     <label htmlFor="date-du">Du</label>
                     <input type="date" id="date-du" className="rezav-input input-date" />
@@ -23,9 +23,14 @@ const MainHeader = () => {
                     <input type="time" id="time-au" className="rezav-input input-time" />
 
                 </>
-            ) : ''}
-            <button className="rezav-btn-2 filter-btn"><span className="material-symbols-rounded">tune</span>Filtrer</button>
-            <input className="rezav-input search-objects" type="search" name="search-objects" id="searchObj" />
+            )}
+            {location.pathname === '/list-objects' && (
+                <>
+                    <button className="rezav-btn-2 filter-btn"><span className="material-symbols-rounded">tune</span>Filtrer</button>
+                    <input className="rezav-input search-objects" type="search" name="search-objects" id="searchObj" />
+                </>
+            )}
+
 
         </header>
     );
