@@ -1,8 +1,16 @@
 [{
-  "_id":"testUser",
+  "idUser":"testUser",
   "email": "clementine.prouteau.etu@univ-lemans.fr",
   "role": "student",
   "affiliation": "student",
   "firstName": "Clémentine",
   "lastname": "Prouteau"
+},
+{
+  "idUser":"professor",
+  "email": "perigmes@gmail.com",
+  "role": "admin",
+  "affiliation": "professor",
+  "firstName": "Eric",
+  "lastname": "Houlière"
 }]

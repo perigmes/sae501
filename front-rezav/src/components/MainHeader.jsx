@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
 import { selectObjIsSelectable } from "../features/demande/demandeSelector";
-import { clearObjectSelections, setObjIsSelectable } from "../features/demande/demandeSlice";
 import { useLocation } from 'react-router-dom';
 
 const MainHeader = () => {
