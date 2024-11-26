@@ -1,9 +1,11 @@
-// src/App.jsx
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import materielData from './assets/bdd/matériel.materiel.json';
 import { setObjects } from './features/demande/demandeSlice';
-import ObjectList from './components/objectList';
+import ListObjects from './pages/ListObjects';
+import MainHeader from './components/MainHeader';
+
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './assets/styles/commun.scss';
 import './assets/styles/card.scss';
 
@@ -16,10 +18,15 @@ function App() {
   
   return (
     <main>
-      <ObjectList/>
+      <MainHeader/>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<ListObjects />} />
+          <Route path="/list-objects" element={<ListObjects />} />
+        </Routes>
+      </BrowserRouter>
     </main>
   );
 }
 
 export default App;
->>>>>>> 38c464372ebf750c606c07e33d1c6184989f7512

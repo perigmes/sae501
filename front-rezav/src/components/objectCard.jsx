@@ -3,6 +3,17 @@ import { selectObjIsSelectable, selectSelectedObjects } from "../features/demand
 import { useState, useEffect } from "react";
 import { deselectObject, selectObject, setInfoObject } from "../features/demande/demandeSlice";
 
+export function getElementAndAncestors(element) {
+    const ancestors = [];
+    
+    while (element) {
+        ancestors.push(element); // Ajoute l'élément courant
+        element = element.parentElement; // Passe à l'élément parent
+    }
+    
+    return ancestors;
+}
+
 const ObjectCard = ({ object }) => {
     const { _id, name, picture } = object;
     const id = _id.$oid;
@@ -21,6 +32,19 @@ const ObjectCard = ({ object }) => {
             }
         } else {
             dispatch(setInfoObject(object));
+            document.querySelectorAll('.object-card').forEach(card => { card.style.pointerEvents = 'none'; });
+            document.querySelector('.rezav-button-1.next-step').style.pointerEvents = 'none';
+            const rootElement = document.querySelector('#root');
+            if (rootElement) {
+                const elementsToBlur = rootElement.querySelectorAll(`:scope *`);
+                
+                elementsToBlur.forEach(element => {
+                    if (!element.closest('object-popup')) {
+                        element.style.filter = 'blur(2.5px)';
+                    }
+                });
+            }
+            document.querySelector('.objects-list').style.overflowY = 'hidden';      
         }
     };
 
