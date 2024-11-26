@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { loadMateriel } from './reservationsAsyncAction';
 
 const demandeSlice = createSlice({
     name: 'demande',
@@ -8,9 +9,11 @@ const demandeSlice = createSlice({
         dataForm: {
             idSelectedObjects: [],
         },
-        objInfos: {}
+        objInfos: {},
+        userId:'',
     },
     reducers: {
+
         setObjects: (state, action) => {
             state.objects = action.payload;
         },
@@ -37,9 +40,24 @@ const demandeSlice = createSlice({
             state.dataForm.idSelectedObjects = [];
         }
         
+    },
+    extraReducers: (builder) => {
+            builder
+            .addCase(loadMateriel.pending, (state) => {
+                state.loading = true;
+                state.errors.apiErrorLoad = null;
+            })
+            .addCase(loadMateriel.fulfilled, (state, action) => {
+                state.objects = action.payload;
+                state.loading = false;
+                state.errors.apiErrorLoad = null;
+            })
+            .addCase(loadMateriel.rejected, (state, action) => {
+                state.loading = false;
+                state.errors.apiErrorLoad = action.payload;
+            })
+            
     }
-    // extraReducers: (builder) => {
-    // }
 });
 export const { setObjects, setObjIsSelectable, setIdSelectedObjects, selectObject, deselectObject, setInfoObject, clearObjectSelections } = demandeSlice.actions;
 

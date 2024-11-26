@@ -1,5 +1,5 @@
 [{
-  "_id":"testUser",
+  "idUser":"testUser",
   "email": "clementine.prouteau.etu@univ-lemans.fr",
   "role": "student",
   "affiliation": "student",
