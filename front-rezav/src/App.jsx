@@ -1,4 +1,3 @@
-// src/App.jsx
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import materielData from './assets/bdd/matériel.materiel.json';
