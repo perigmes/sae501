@@ -18,8 +18,8 @@ function App() {
   
   return (
     <main>
-      <MainHeader/>
       <BrowserRouter>
+      <MainHeader/>
         <Routes>
           <Route path="/" element={<ListObjects />} />
           <Route path="/list-objects" element={<ListObjects />} />
