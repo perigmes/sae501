@@ -10,6 +10,12 @@
 html {
     width: 100vw;
     background: $white;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
 
     body {
         width: 100vw;
@@ -19,25 +25,37 @@ html {
 
             .header {
                 height: 75px;
-                width: 100vw;
+                width: calc(100% - 50px);
                 position: sticky;
                 top : 0;
                 left : 0;
                 background: $white;
                 z-index: 2;
+                padding: 0 25px;
             } 
 
             main {
-                width: 100%;
+                width: calc(100% - 50px);
                 z-index: 0;
+                padding: 0 25px;
+
+                .main-hdr {
+
+                    .page-title {
+                        font-family: $main-font;
+                        font-size: $font-size-22;
+                        color: $mauve-rezav;
+                    }
+
+                }
             }
         }
     }
 }
 
 // CSS pour les material icons
-
 .material-symbols-rounded {
+  user-select: none;
   font-variation-settings:
   'FILL' 0,
   'wght' 200,
@@ -46,7 +64,6 @@ html {
 }
 
 // CSS pour les checkbox de l'application REZAV
-
 .rezav-checkbox {
     display: none;
 }
@@ -87,7 +104,6 @@ html {
 }
 
 // CSS pour les boutons de l'application REZAV
-
 .rezav-button-1 {
     background-color: $mauve-rezav;
     color: $white;
@@ -108,4 +124,88 @@ html {
     .material-symbols-rounded {
         font-size: $font-size-28;
     }
+}
+
+.rezav-button-2 {
+    background: transparent;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: 10px;
+    color: $mauve-rezav;
+    border: none;
+    font-size: $font-size-14;
+    font-weight: $font-weight-500;
+    
+    .material-symbols-rounded {
+        font-size: $font-size-22;
+    }
+}
+
+/* CSS pour les inputs de l'application*/
+.rezav-input {
+    font-size: $font-size-14;
+    font-family: $main-font;
+    font-weight: $font-weight-500;
+    color: $mauve-rezav;
+
+    &.input-date, &.input-time {
+        display: flex;
+        flex-flow: column nowrap;
+        width: fi;
+
+        input {
+            color: $mauve-rezav;
+            border: none;
+            outline: none;
+            background-color: transparent;
+            font-size: $font-size-14;
+            font-family: $main-font;
+            font-weight: $font-weight-500;
+            color: inherit;
+            background: $white;
+            border: solid 1px $mauve-rezav;
+            border-radius: 5px;
+            height: 30px;
+            box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+        }
+    }
+
+    /* CSS pour la barre de reherche */
+    &.search-barre {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        overflow: hidden;
+        max-width: 250px;
+        width: 100%;
+        padding: 0 5px;
+        cursor: text;
+        background: $white;
+        border: solid 1px $mauve-rezav;
+        border-radius: 5px;
+        height: 30px;
+        box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+
+        &:has(input:focus) {
+            outline: solid 1px $mauve-rezav;
+        }
+
+        input {
+            border: none;
+            outline: none;
+            background-color: transparent;
+            font-size: $font-size-14;
+            font-family: $main-font;
+            font-weight: $font-weight-500;
+            color: inherit;
+            width: 100%;
+            height: 100%;
+        }
+        .material-symbols-rounded {
+            cursor: pointer;
+            color: inherit;
+        }
+    }
+
 }

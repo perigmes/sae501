@@ -3,17 +3,6 @@ import { selectObjIsSelectable, selectSelectedObjects } from "../features/demand
 import { useState, useEffect } from "react";
 import { deselectObject, selectObject, setInfoObject } from "../features/demande/demandeSlice";
 
-export function getElementAndAncestors(element) {
-    const ancestors = [];
-    
-    while (element) {
-        ancestors.push(element); // Ajoute l'élément courant
-        element = element.parentElement; // Passe à l'élément parent
-    }
-    
-    return ancestors;
-}
-
 const ObjectCard = ({ object }) => {
     const { _id, name, picture } = object;
     const id = _id.$oid;
@@ -34,37 +23,39 @@ const ObjectCard = ({ object }) => {
             dispatch(setInfoObject(object));
             document.querySelectorAll('.object-card').forEach(card => { card.style.pointerEvents = 'none'; });
             document.querySelector('.rezav-button-1.next-step').style.pointerEvents = 'none';
-            const rootElement = document.querySelector('#root');
-            if (rootElement) {
-                const elementsToBlur = rootElement.querySelectorAll(`:scope *`);
-                
-                elementsToBlur.forEach(element => {
-                    if (!element.closest('object-popup')) {
-                        element.style.filter = 'blur(2.5px)';
-                    }
-                });
-            }
-            document.querySelector('.objects-list').style.overflowY = 'hidden';      
+            const objectsList = document.querySelector('.objects-list') ?? null;
+            const objectPopup = document.querySelector('.object-popup') ?? null;
+            
+            const blurElements = Array.from(objectsList.children).filter(child => child !== objectPopup); // Crée une liste contenant tous les enfants de objects-list à l'exception de la popup
+            const headerElement = document.querySelector('.header') ?? null; // Sélectionne le header de l'application
+            const objectsHdrElement = document.querySelector('.objects-hdr') ?? null; // Sélectionne le header du main de l'application
+            blurElements.push(headerElement, objectsHdrElement); // Ajoute les 2 headers à la liste crée précédemment
+            const finalBlurElements = blurElements.filter(element => element !== null); // Filtre les éléments null pour éviter les erreurs
+
+            finalBlurElements.forEach(element => {
+                element.style.filter = 'blur(2.5px)'; // Ajoute le filtre de flou sur les éléments
+            });          
+            document.querySelector('html').style.overflowY = 'hidden'; // Empêche le scroll dans l'application         
         }
     };
 
     const handleCheckboxChange = (e) => {
-        e.stopPropagation(); // Prévenir la propagation au parent
+        e.stopPropagation();
         handleClick();
     };
 
     useEffect(() => {
         const resizeCard = () => {
-            const parentElement = document.getElementById(id).parentElement;
-            const parentWidth = parentElement.offsetWidth;
-            const parentGap = parseFloat(window.getComputedStyle(parentElement).getPropertyValue('gap'));
-                        const newHeight = parentWidth * 0.33 - (10 + parentGap);
-            setCardHeight(Math.min(newHeight, 175));
+            const card = document.getElementById(id);
+            const cardWidth = card.offsetWidth;
+    
+            // Assurez-vous que la hauteur est égale à la largeur
+            setCardHeight(cardWidth);
         };
-
+    
         resizeCard();
         window.addEventListener('resize', resizeCard);
-
+    
         return () => {
             window.removeEventListener('resize', resizeCard);
         };

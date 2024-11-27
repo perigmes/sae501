@@ -7,7 +7,6 @@ import MainHeader from './components/MainHeader';
 import Header from './components/Header';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './assets/styles/commun.scss';
-import './assets/styles/card.scss';
 
 function App() {
   const dispatch = useDispatch();
