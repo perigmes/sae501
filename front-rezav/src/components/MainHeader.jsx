@@ -6,7 +6,7 @@ const MainHeader = () => {
     const dispatch = useDispatch();
     const objIsSelectable = useSelector(selectObjIsSelectable); // Récupérer l'état indiquant si l'objet est sélectionnable
     const location = useLocation();
-
+    
     return (
         <header className={`main-hdr${objIsSelectable ? ' list-obj-selectable' : ''}`}>
             <h2 className="page-title">{location.pathname === '/list-objects' ? "Liste du matériel" : "Formulaire de réservation"}</h2>

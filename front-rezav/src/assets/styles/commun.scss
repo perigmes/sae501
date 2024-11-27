@@ -152,7 +152,6 @@ html {
     &.input-date, &.input-time {
         display: flex;
         flex-flow: column nowrap;
-        width: fi;
 
         input {
             color: $mauve-rezav;
@@ -168,6 +167,11 @@ html {
             border-radius: 5px;
             height: 30px;
             box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+
+            &.focus {
+                outline: solid 1px $mauve-rezav;
+                background-color: green;
+            }
         }
     }
 
