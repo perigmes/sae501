@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { loadMateriel } from './reservationsAsyncAction';
+import { addReservation, loadMateriel } from './reservationsAsyncAction';
 
 const demandeSlice = createSlice({
     name: 'demande',
@@ -11,6 +11,11 @@ const demandeSlice = createSlice({
         },
         objInfos: {},
         userId:'',
+        reservations:[],
+        errors:{
+            apiErrorLoad: null,
+            apiErrorAdd: null,
+        }
     },
     reducers: {
 
@@ -56,7 +61,16 @@ const demandeSlice = createSlice({
                 state.loading = false;
                 state.errors.apiErrorLoad = action.payload;
             })
-            
+            .addCase(addReservation.pending, (state,action) => {
+                state.errors.apiErrorAdd = null;
+            })
+            .addCase(addReservation.fulfilled, (state, action) => {
+                state.reservations.push(action.payload);
+            })
+            .addCase(addReservation.rejected, (state, action) => {
+                state.errors.apiErrorAdd = action.payload;
+            })
+
     }
 });
 export const { setObjects, setObjIsSelectable, setIdSelectedObjects, selectObject, deselectObject, setInfoObject, clearObjectSelections } = demandeSlice.actions;
