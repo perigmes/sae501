@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { addReservation, loadMateriel } from './reservationsAsyncAction';
 
 const demandeSlice = createSlice({
     name: 'demande',
@@ -8,9 +9,16 @@ const demandeSlice = createSlice({
         dataForm: {
             idSelectedObjects: [],
         },
-        objInfos: {}
+        objInfos: {},
+        userId:'',
+        reservations:[],
+        errors:{
+            apiErrorLoad: null,
+            apiErrorAdd: null,
+        }
     },
     reducers: {
+
         setObjects: (state, action) => {
             state.objects = action.payload;
         },
@@ -37,9 +45,33 @@ const demandeSlice = createSlice({
             state.dataForm.idSelectedObjects = [];
         }
         
+    },
+    extraReducers: (builder) => {
+            builder
+            .addCase(loadMateriel.pending, (state) => {
+                state.loading = true;
+                state.errors.apiErrorLoad = null;
+            })
+            .addCase(loadMateriel.fulfilled, (state, action) => {
+                state.objects = action.payload;
+                state.loading = false;
+                state.errors.apiErrorLoad = null;
+            })
+            .addCase(loadMateriel.rejected, (state, action) => {
+                state.loading = false;
+                state.errors.apiErrorLoad = action.payload;
+            })
+            .addCase(addReservation.pending, (state,action) => {
+                state.errors.apiErrorAdd = null;
+            })
+            .addCase(addReservation.fulfilled, (state, action) => {
+                state.reservations.push(action.payload);
+            })
+            .addCase(addReservation.rejected, (state, action) => {
+                state.errors.apiErrorAdd = action.payload;
+            })
+
     }
-    // extraReducers: (builder) => {
-    // }
 });
 export const { setObjects, setObjIsSelectable, setIdSelectedObjects, selectObject, deselectObject, setInfoObject, clearObjectSelections } = demandeSlice.actions;
 
