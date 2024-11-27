@@ -2,14 +2,14 @@ import { useSelector } from "react-redux";
 import { selectObjects } from "../features/demande/demandeSelector";
 import ObjectCard from './objectCard';
 
-const ObjectsByCategory = ({ category }) => {
+const ObjectsByFilter = ({ filter }) => {
     const allObjects = useSelector(selectObjects); // Récupère tous les objets
-    const objects = [...allObjects].filter(object => object.categorie === category); // trie les objets pour optenir uniquement ceux appartenant à la catégorie
+    const objects = [...allObjects].filter(object => object.categorie === filter); // trie les objets pour optenir uniquement ceux appartenant à la catégorie
 
     return (
         <>
-            <h4 className="category-title">{category}</h4>
-            <div className="category-container">
+            <h4 className="objects-filtered-title">{filter}</h4>
+            <div className="objects-filtered-container">
                 {[...objects].map((object) => (
                     <ObjectCard key={object._id.$oid} object={object} />
                 ))}
@@ -18,4 +18,4 @@ const ObjectsByCategory = ({ category }) => {
     );
 };
 
-export default ObjectsByCategory;
+export default ObjectsByFilter;
