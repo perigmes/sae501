@@ -5,4 +5,12 @@
   "affiliation": "student",
   "firstName": "Clémentine",
   "lastname": "Prouteau"
+},
+{
+  "idUser":"professor",
+  "email": "perigmes@gmail.com",
+  "role": "admin",
+  "affiliation": "professor",
+  "firstName": "Eric",
+  "lastname": "Houlière"
 }]
