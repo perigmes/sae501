@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
-import { selectObjects } from "../features/demande/demandeSelector";
-import ObjectCard from './objectCard';
+import { selectObjects } from "../../features/demande/demandeSelector";
+import ObjectCard from "./ObjectCard";
 
 const ObjectsByFilter = ({ filter }) => {
     const allObjects = useSelector(selectObjects); // Récupère tous les objets

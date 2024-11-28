@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { selectObjects, selectObjIsSelectable, selectObjInfos } from "../features/demande/demandeSelector";
-import ObjectsByFilter from "../components/objectsByFilter";
+import ObjectsByFilter from "../components/objectsList&Form/ObjectsByFilter";
 import { clearDataDemande, setObjIsSelectable } from "../features/demande/demandeSlice";
-import ObjectPopup from "../components/objectPopup";
+import ObjectPopup from "../components/objectsList&Form/ObjectPopup";
 import { Link, useNavigate } from "react-router-dom";
 import '../assets/styles/card.scss';
 
