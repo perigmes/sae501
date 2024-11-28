@@ -6,11 +6,27 @@ const demandeSlice = createSlice({
     initialState: {
         objects: [],
         objIsSelectable: false,
-        dataForm: {
-            startDate: "", 
-            returnDate: "",
-            idSelectedObjects: [],
+
+        dataDemande: {
+            id: "",
+            userId: "",
+            startDT: {
+                date: "",
+                time: ""
+            },
+            returnDT: {
+                date: "",
+                time: ""
+            },
+            name: "",
+            desc: "",
+            justif: "",
+            plan: "",
+            userId: "",
+            group: [],
+            objects: [],
         },
+
         objInfos: {},
         userId:'',
         reservations:[],
@@ -27,30 +43,30 @@ const demandeSlice = createSlice({
         setObjIsSelectable: (state) => {
             state.objIsSelectable = !state.objIsSelectable;
         },
-        setIdSelectedObjects: (state, action) => {
-            state.dataForm.idSelectedObjects = action.payload;
+        setSelectedObjects: (state, action) => {
+            state.dataDemande.objects = action.payload;
         },
         selectObject: (state, action) => {
             const id = action.payload;
-            if (!state.dataForm.idSelectedObjects.includes(id)) {
-                state.dataForm.idSelectedObjects.push(id);
+            if (!state.dataDemande.objects.includes(id)) {
+                state.dataDemande.objects.push(id);
             }
         },
         deselectObject: (state, action) => {
             const id = action.payload;
-            state.dataForm.idSelectedObjects = state.dataForm.idSelectedObjects.filter(selectedId => selectedId !== id);
+            state.dataDemande.objects = state.dataDemande.objects.filter(selectedId => selectedId !== id);
         },
         setInfoObject: (state, action) => {
             state.objInfos =  action.payload;
         },
-        clearObjectSelections: (state) => {
-            state.dataForm.idSelectedObjects = [];
+        clearDataDemande: (state) => {
+            state.dataDemande = initialState.dataDemande;
         },
         setStartDate: (state, action) => {
-            state.dataForm.startDate = action.payload;
+            state.dataDemande.startDate = action.payload;
         },
         setReturnDate: (state, action) => {
-            state.dataForm.returnDate = action.payload;
+            state.dataDemande.returnDate = action.payload;
         },
         
     },
@@ -81,6 +97,6 @@ const demandeSlice = createSlice({
 
     }
 });
-export const { setObjects, setObjIsSelectable, setIdSelectedObjects, selectObject, deselectObject, setInfoObject, clearObjectSelections, setStartDate, setReturnDate } = demandeSlice.actions;
+export const { setObjects, setObjIsSelectable, setobjects, selectObject, deselectObject, setInfoObject, clearDataDemande, setStartDate, setReturnDate } = demandeSlice.actions;
 
 export default demandeSlice.reducer;

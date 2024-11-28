@@ -1,13 +1,19 @@
 [  
   {
-    "_id": "66e93000a81b36504c2a5ac1",
-    "idUser": "testUser", 
-    "startDate": "2024-11-28T09:00:00Z", 
-    "returnDate": "2024-11-30T09:00:00Z", 
+    "id": "66e93000a81b36504c2a5ac1",
+    "startDT": {
+      "date": "2024-11-28Z",
+      "time": "09:00"
+    },
+    "returnDT": {
+      "date": "2024-11-30",
+      "time": "17:00"
+    },
     "name": "Film Documentaire", 
     "desc": "Tournage d'un documentaire sur la nature en milieu urbain",
     "justif": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-    "plan": "/public/plan/plan_test.pdf",
+    "plan": "plan_test.pdf",
+    "UserId": "testUser", 
     "group": [
       {
         "firstName": "Clémentine",
@@ -31,7 +37,7 @@
         "groupe": "33F"
       }
     ],
-    "items": [
+    "objects": [
       "66e91f52a81b36504c2a5aa2",
       "66e92149a81b36504c2a5aa7",
       "66e9257ca81b36504c2a5ab0",

@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { selectObjects, selectObjIsSelectable, selectObjInfos } from "../features/demande/demandeSelector";
 import ObjectsByFilter from "../components/objectsByFilter";
-import { clearObjectSelections, setObjIsSelectable } from "../features/demande/demandeSlice";
+import { clearDataDemande, setObjIsSelectable } from "../features/demande/demandeSlice";
 import ObjectPopup from "../components/objectPopup";
 import { Link, useNavigate } from "react-router-dom";
 import '../assets/styles/card.scss';
@@ -22,7 +22,7 @@ const ListObjects = () => {
     }
 
     const handlePrevClick = () => {
-        dispatch(clearObjectSelections()); // Désélectionne tous les objets
+        dispatch(clearDataDemande()); // Désélectionne tous les objets
         dispatch(setObjIsSelectable()); // Annuler la sélection
     }
 
