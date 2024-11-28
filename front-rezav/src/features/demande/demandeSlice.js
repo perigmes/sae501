@@ -9,7 +9,7 @@ const demandeSlice = createSlice({
 
         dataDemande: {
             id: "",
-            userId: "",
+            userId: "", 
             startDT: {
                 date: "",
                 time: ""
@@ -36,7 +36,6 @@ const demandeSlice = createSlice({
         }
     },
     reducers: {
-
         setObjects: (state, action) => {
             state.objects = action.payload;
         },
@@ -60,13 +59,13 @@ const demandeSlice = createSlice({
             state.objInfos =  action.payload;
         },
         clearDataDemande: (state) => {
-            state.dataDemande = initialState.dataDemande;
+            state.dataDemande = demandeSlice.getInitialState().dataDemande;
         },
-        setStartDate: (state, action) => {
-            state.dataDemande.startDate = action.payload;
+        setStartDT: (state, action) => {
+            state.dataDemande.startDT = action.payload;
         },
-        setReturnDate: (state, action) => {
-            state.dataDemande.returnDate = action.payload;
+        setReturnDT: (state, action) => {
+            state.dataDemande.returnDT = action.payload;
         },
         
     },
@@ -97,6 +96,6 @@ const demandeSlice = createSlice({
 
     }
 });
-export const { setObjects, setObjIsSelectable, setobjects, selectObject, deselectObject, setInfoObject, clearDataDemande, setStartDate, setReturnDate } = demandeSlice.actions;
+export const { setObjects, setObjIsSelectable, setobjects, selectObject, deselectObject, setInfoObject, clearDataDemande, setStartDT, setReturnDT } = demandeSlice.actions;
 
 export default demandeSlice.reducer;

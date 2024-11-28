@@ -2,11 +2,15 @@
 import { useState } from "react"
 import { useSelector } from "react-redux";
 import {v4 as uuid} from 'uuid';
-import { selectSelectedObjects } from "../features/demande/demandeSelector";
+import { selectDataDemande, selectSelectedObjects } from "../features/demande/demandeSelector";
 import { useDispatch } from "react-redux";
 import {addReservation} from "../features/demande/reservationsAsyncAction";
 
 export const Formulaire = () => {
+    const dispatch = useDispatch();
+    const stateDataDemande = useSelector(selectDataDemande); // Récupère les informations de la demande
+    console.log(stateDataDemande);
+
     const [membresG, setMembresG] = useState([
         {
             firstName: "Pierrick",
@@ -16,7 +20,6 @@ export const Formulaire = () => {
     ]);
     const objectSelected = useSelector(selectSelectedObjects);
     const TD = ["TD11", "TD12", "TD13", "TD21", "TD22", "TD23", "TD31", "TD32", "TD33"];
-    const dispatch = useDispatch();
 
     const handleSubmit = (event) => {
         event.preventDefault(); // Empêche le rechargement de la page
@@ -41,7 +44,6 @@ export const Formulaire = () => {
             implementationPlan: values.projectPlan,
             items: objectSelected,
             idStatus: uuid(),
-            professor: "perigmes@gmail.com",
         };
 
         dispatch(addReservation(reservation));
@@ -53,19 +55,19 @@ export const Formulaire = () => {
             {/* Assurez-vous que `onSubmit` est relié au formulaire */}
             <form onSubmit={handleSubmit}>
                 <fieldset>
-                    <label htmlFor="projectName">Nom du projet</label>
-                    <textarea id="projectName" name="projectName"></textarea>
+                    <label htmlFor="projectName">{stateDataDemande && stateDataDemande.name && stateDataDemande.name.trim() !== "" ? stateDataDemande.name : "Nom du projet"}</label>
+                    <input type="text" name="projectName" id="projectName" value={stateDataDemande && stateDataDemande.name && stateDataDemande.name.trim() !== "" ? stateDataDemande.name : null}/>
                     <label htmlFor="projectDescription">Description du projet</label>
-                    <textarea id="projectDescription" name="projectDescription"></textarea>
+                    <textarea id="projectDescription" name="projectDescription" value={stateDataDemande && stateDataDemande.desc && stateDataDemande.desc.trim() !== "" ? stateDataDemande.desc : null}></textarea>
                     <label htmlFor="projectPlan">Votre plan d'implantation</label>
                     <input id="projectPlan" type="file" accept="image/*" name="projectPlan" />
                     <label htmlFor="projectJustification">Justification du matériel choisi</label>
-                    <textarea id="projectJustification" name="projectJustification"></textarea>
+                    <textarea id="projectJustification" name="projectJustification" value={stateDataDemande && stateDataDemande.justif && stateDataDemande.justif.trim() !== "" ? stateDataDemande.justif : null}></textarea>
                 </fieldset>
                 <fieldset>
                     <h2>Votre groupe</h2>
                     <div>
-                        {membresG.map((membre, index) => (
+                        {stateDataDemande.group.map((membre, index) => (
                             <div key={index}>
                                 <label>Prénom</label>
                                 <input

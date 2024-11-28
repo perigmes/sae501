@@ -18,6 +18,8 @@ const ListObjects = () => {
     const handleNextClick = () => { 
         if (!objIsSelectable) {
             dispatch(setObjIsSelectable()); // Activer la sélection si ce n'est pas déjà le cas
+        } else {
+            navigate('/formulaire-reservation'); // Rediriger vers le formulaire de demande si l'objet est sélectionné
         }
     }
 
