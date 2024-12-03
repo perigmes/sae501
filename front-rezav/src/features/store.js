@@ -3,7 +3,7 @@ import reducer from './demande/demandeSlice'
 
 const store = configureStore({
     reducer: {
-        demande:reducer,
+        demande: reducer,
     }
 })
 export default store;
