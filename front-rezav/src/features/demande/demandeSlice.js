@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { addReservation, loadMateriel } from './reservationsAsyncAction';
+import { addReservation, addReservationStatus, loadMateriel } from './reservationsAsyncAction';
 
 const demandeSlice = createSlice({
     name: 'demande',
@@ -13,6 +13,7 @@ const demandeSlice = createSlice({
         },
         objInfos: {},
         userId:'',
+        reservationsStatus:[],
         reservations:[],
         errors:{
             apiErrorLoad: null,
@@ -78,6 +79,7 @@ const demandeSlice = createSlice({
             .addCase(addReservation.rejected, (state, action) => {
                 state.errors.apiErrorAdd = action.payload;
             })
+         
 
     }
 });
