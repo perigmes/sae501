@@ -1,12 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { addReservation, loadMateriel } from './reservationsAsyncAction';
+import { addReservation, loadMateriel, loadReservation, loadReservations } from './reservationsAsyncAction';
 
 const demandeSlice = createSlice({
     name: 'demande',
     initialState: {
         objects: [],
+        reservations: [],
         objIsSelectable: false,
-
+        loading: false,
         dataDemande: {
             id: "",
             userId: "", 
@@ -29,9 +30,9 @@ const demandeSlice = createSlice({
 
         objInfos: {},
         userId:'',
-        reservations:[],
         errors:{
-            apiErrorLoad: null,
+            apiErrorObjectsLoad: null,
+            apiErrorReservationLoad: null,
             apiErrorAdd: null,
         }
     },
@@ -73,16 +74,16 @@ const demandeSlice = createSlice({
             builder
             .addCase(loadMateriel.pending, (state) => {
                 state.loading = true;
-                state.errors.apiErrorLoad = null;
+                state.errors.apiErrorObjectsLoad = null;
             })
             .addCase(loadMateriel.fulfilled, (state, action) => {
                 state.objects = action.payload;
                 state.loading = false;
-                state.errors.apiErrorLoad = null;
+                state.errors.apiErrorObjectsLoad = null;
             })
             .addCase(loadMateriel.rejected, (state, action) => {
                 state.loading = false;
-                state.errors.apiErrorLoad = action.payload;
+                state.errors.apiErrorObjectsLoad = action.payload;
             })
             .addCase(addReservation.pending, (state,action) => {
                 state.errors.apiErrorAdd = null;

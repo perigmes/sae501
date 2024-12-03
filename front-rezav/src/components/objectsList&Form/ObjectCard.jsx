@@ -4,8 +4,7 @@ import { useState, useEffect } from "react";
 import { deselectObject, selectObject, setInfoObject } from "../../features/demande/demandeSlice";
 
 const ObjectCard = ({ object }) => {
-    const { _id, name, picture } = object;
-    const id = _id.$oid;
+    const { id, name, picture } = object;
     const objIsSelectable = useSelector(selectObjIsSelectable);
     const selectedObjects = useSelector(selectSelectedObjects);
     const isSelected = selectedObjects.includes(id);

@@ -1,15 +1,17 @@
 import { useDispatch, useSelector } from "react-redux";
-import { selectObjects, selectObjIsSelectable, selectObjInfos } from "../features/demande/demandeSelector";
+import { selectObjects, selectObjIsSelectable, selectObjInfos, selectReservations, selectReservationDates } from "../features/demande/demandeSelector";
 import ObjectsByFilter from "../components/objectsList&Form/ObjectsByFilter";
 import { clearDataDemande, setObjIsSelectable } from "../features/demande/demandeSlice";
 import ObjectPopup from "../components/objectsList&Form/ObjectPopup";
 import { Link, useNavigate } from "react-router-dom";
 import '../assets/styles/card.scss';
+import { filterAvailableObjects } from "../utils/tools";
 
 
 const ListObjects = () => {
     const dispatch = useDispatch();
-    const objects = useSelector(selectObjects); // Récupère tous les objets
+    const objects = useSelector(selectObjects);
+
     const categories = [...new Set([...objects].map((object) => object.categorie))]; //récupère les categories d'objets
     const objIsSelectable = useSelector(selectObjIsSelectable); // Récupérer l'état indiquant si l'objet est sélectionnable
     const stateObjInfos = useSelector(selectObjInfos); // Récupérer les informations sur l'objet sélectionné
