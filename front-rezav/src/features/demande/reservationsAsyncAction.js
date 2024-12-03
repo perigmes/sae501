@@ -9,8 +9,19 @@ try{
     return response.data;
 }
 catch (error){
-    return rejectWithValue("L'application est actuellement indisponible, Veuillez réessayer ultérieurement en cas de problème lors du chargement des réservations")
+    return rejectWithValue("L'application est actuellement indisponible, Veuillez réessayer ultérieurement en cas de problème lors du chargement du matériel")
 }
+});
+
+export const loadReservation= createAsyncThunk('reservation/loadReservation', async (_,{rejectWithValue}) => {
+    try{
+        const response = await axios.get(`${URL_API_RESERVATIONS}/reservation`);
+        console.log(response.data)
+        return response.data;
+    }
+    catch{
+        return rejectWithValue("L'application est actuellement indisponible, Veuillez réessayer ultérieurement en cas de problème lors du chargement des réservations")
+    }
 });
 
 export const addReservation= createAsyncThunk('reservation/addReservation', async ({reservation,reservation_status},{rejectWithValue}) => {
@@ -32,7 +43,7 @@ export const confirmReservation= createAsyncThunk('reservation/confirmReservatio
     const response = await axios.patch(`${URL_API_RESERVATIONS}/reservation/requestStatus/${reservationId}`, {newData});
     console.log(response.data)
     return response.data;
-    
+
 }
 catch{
     return rejectWithValue("La mise à jour de status a échoué")

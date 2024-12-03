@@ -122,6 +122,17 @@ app.post("/reservation", (req, res) => {
   });
 });
 
+// GET pour récupérer les réservations
+app.get("/reservation", (req, res) => {
+  fs.readFile(reservationFilePath, "utf8", (err, data) => {
+    if (err) {
+      return res.status(500).json({ error: "Erreur lors de la lecture du fichier" });
+    }
+    const reservations = JSON.parse(data);
+    res.status(200).json(reservations);
+  });
+});
+
 app.patch("/reservation/requestStatus/:id",(req,res)=>{
 console.log(req.body.newData.status);
   const id = req.params.id;
@@ -153,47 +164,10 @@ console.log(req.body.newData.status);
 
 })
 
-// GET pour récupérer les documents par nom (regex)
-app.get("/materiel/name/:name", async (req, res) => {
-  try {
-    const docs = await collection
-      .find({ name: { $regex: req.params.name, $options: "i" } })
-      .toArray();
-    res.status(200).json(docs);
-  } catch (err) {
-    res.status(500).json({ error: "Erreur lors de la récupération des documents" });
-  }
-});
+;
 
-// GET pour récupérer un document par ID
-app.get("/materiel/id/:id", async (req, res) => {
-  try {
-    const doc = await collection.findOne({ _id: new ObjectId(req.params.id) });
-    if (doc) {
-      res.status(200).json(doc);
-    } else {
-      res.status(404).json({ message: "Document non trouvé" });
-    }
-  } catch (err) {
-    res.status(500).json({ error: "Erreur lors de la récupération du document" });
-  }
-});
 
-// DELETE pour supprimer un document par ID
-app.delete("/materiel/:id", async (req, res) => {
-  const id = req.params.id;
 
-  try {
-    const result = await collection.deleteOne({ _id: new ObjectId(id) });
-    if (result.deletedCount === 1) {
-      res.status(200).json({ message: "Document supprimé avec succès" });
-    } else {
-      res.status(404).json({ message: "Document non trouvé" });
-    }
-  } catch (err) {
-    res.status(500).json({ error: "Erreur lors de la suppression du document" });
-  }
-});
 
 // Route protégée avec CAS
 app.get("/cas", cas.casLogin);
