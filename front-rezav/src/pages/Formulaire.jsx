@@ -15,6 +15,7 @@ export const Formulaire = () => {
         },
     ]);
     const objectSelected = useSelector(selectSelectedObjects);
+    console.log(objectSelected)
     const TD = ["TD11", "TD12", "TD13", "TD21", "TD22", "TD23", "TD31", "TD32", "TD33"];
     const dispatch = useDispatch();
 
@@ -29,7 +30,7 @@ export const Formulaire = () => {
             projectDescription: formData.get("projectDescription"),
             projectPlan: formData.get("projectPlan"),
         };
-
+        const idStatus= uuid();
         const reservation = {
             _id: uuid(),
             userId: "testUser",
@@ -40,11 +41,14 @@ export const Formulaire = () => {
             groupMembers: membresG,
             implementationPlan: values.projectPlan,
             items: objectSelected,
-            idStatus: uuid(),
+            idStatus: idStatus,
             professor: "perigmes@gmail.com",
         };
-
-        dispatch(addReservation(reservation));
+        const reservation_status= {
+            idStatus: idStatus,
+            status: "pending",
+        }
+         dispatch(addReservation({ reservation, reservation_status })).unwrap();
     };
 
     return (
