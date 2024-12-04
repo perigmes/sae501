@@ -133,13 +133,12 @@ app.get("/reservation", (req, res) => {
   });
 });
 
-app.patch("/reservation/requestStatus/:id",(req,res)=>{
-console.log(req.body.newData.status);
+app.patch("/reservation/requestStatus/:id", (req, res) => {
   const id = req.params.id;
   const status = req.body.newData.status;
-  const justification = req.body.newData.justification??'';
-  console.log(id,status,justification);
+  const justification = req.body.newData.justification ?? '';
 
+  // Lecture du fichier json reservation_status
   fs.readFile(reservationStatusFilePath, "utf8", (err, data) => {
     if (err) {
       return res.status(500).json({ error: "Erreur lors de la lecture du fichier" });
@@ -156,13 +155,46 @@ console.log(req.body.newData.status);
       if (err) {
         return res.status(500).json({ error: "Erreur lors de l'écriture du fichier" });
       }
-      res.status(200).json({ message: "Statut modifié avec succès" });
-      sendResponseEmail(justification)
+      sendResponseEmail(justification).catch((emailError) => {
+        console.error("Erreur lors de l'envoi de l'e-mail:", emailError.message);
+      });
     });
 
-  });
+    // Lecture de json reservation pour aller chercher les objets
+    fs.readFile(reservationFilePath, "utf8", (err, data) => {
+      if (err) {
+        return res.status(500).json({ error: "Erreur lors de la lecture du fichier" });
+      }
+      const reservations = JSON.parse(data);
+      fs.readFile(materialFilePath, "utf8", (err, data) => {
+        if (err) {
+          return res.status(500).json({ error: "Erreur lors de la lecture du fichier" });
+        }
+        const items = JSON.parse(data);
 
-})
+        // maj du statut des objets
+        const index = reservations.findIndex((resa) => resa.idStatus === id);
+        reservations[index].items.forEach(idItem => {
+          const indexItem = items.findIndex((item) => item._id.$oid === idItem);
+
+          if (indexItem === -1) {
+            return res.status(404).json({ error: "Objet non trouvé" });
+          }
+          if (status === "accepted") {
+            items[indexItem].state = "Reserved";
+          }
+        });
+
+        fs.writeFile(materialFilePath, JSON.stringify(items, null, 2), "utf8", (err) => {
+          if (err) {
+            return res.status(500).json({ error: "Erreur lors de l'écriture du fichier" });
+          }
+          res.status(200).json({ message: "Statut et objets modifiés avec succès" });
+        });
+      });
+    });
+  });
+});
 
 ;
 

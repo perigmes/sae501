@@ -10,7 +10,11 @@ export const Reservation = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(event.target)
-    dispatch(confirmReservation({reservationId:id,status:event.target.response.value, justification:event.target.justification.value}));
+    dispatch(confirmReservation(
+      {reservationId:id,
+        status:event.target.response.value,
+         justification:event.target.justification?.value
+        }));
     setIsSended(true)
   };
   return (
