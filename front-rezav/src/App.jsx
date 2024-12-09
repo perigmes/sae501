@@ -8,6 +8,8 @@ import './assets/styles/commun.scss';
 import './assets/styles/card.scss';
 import { loadMateriel } from './features/demande/reservationsAsyncAction';
 import { Reservation } from './pages/Reservation';
+import Reservations from './pages/Reservations';
+
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -23,6 +25,7 @@ function App() {
           <Route path="/list-objects" element={<ListObjects />} />
           <Route path="/formulaire-reservation" element={<Formulaire />} />
           <Route path='/reservation-confirmation/:response/:id' element={<Reservation/>}/>
+          <Route path='/mes-demarches' element={<Reservations/>}/>
         </Routes>
       </BrowserRouter>
     </main>
