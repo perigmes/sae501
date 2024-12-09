@@ -37,7 +37,6 @@ catch (error){
 
 export const confirmReservation= createAsyncThunk('reservation/confirmReservation', async ({reservationId,status,justification},{rejectWithValue}) => {
     try{
-       
         const newData= {statusId: reservationId, status: status, justification:justification};
         console.log(newData)
     const response = await axios.patch(`${URL_API_RESERVATIONS}/reservation/requestStatus/${reservationId}`, {newData});
@@ -46,7 +45,7 @@ export const confirmReservation= createAsyncThunk('reservation/confirmReservatio
 
 }
 catch{
-    return rejectWithValue("La mise à jour de status a échoué")
+    return rejectWithValue("La confirmation n'a pas pu être effectuée, veuillez réessayer ultérieurement")
 }
 })
 
