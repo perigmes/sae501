@@ -1,20 +1,22 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { selectReservations } from '../features/tickets/ticketSelector ';
+import Ticket from './Ticket';
 
-function TicketsList(){
-    const dispactch = useDispatch();
-    const reservations = useSelector(selectReservations())
+const TicketsList = ({ reservations, onReservationClick }) => {
+  return (
+    <div className="tickets-list">
+      {reservations.length > 0 ? (
+        reservations.map((reservation) => (
+          <Ticket
+            key={reservation.id}
+            reservation={reservation}
+            onClick={() => onReservationClick(reservation)}
+          />
+        ))
+      ) : (
+        <div>Aucune réservation trouvée</div>
+      )}
+    </div>
+  );
+};
 
-    return(
-         <div className='reservationList'>
-            {
-                reservations.map((reservation) => {
-
-                })
-            }
-
-         </div>
-    );
-}
 export default TicketsList;

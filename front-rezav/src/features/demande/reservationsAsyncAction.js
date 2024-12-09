@@ -13,7 +13,7 @@ catch (error){
 }
 });
 
-export const loadReservation= createAsyncThunk('reservation/loadReservation', async (_,{rejectWithValue}) => {
+export const loadReservation = createAsyncThunk('reservation/loadReservation', async (_,{rejectWithValue}) => {
     try{
         const response = await axios.get(`${URL_API_RESERVATIONS}/reservation`);
         console.log(response.data)
