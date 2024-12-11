@@ -18,7 +18,7 @@ function Ticket({reservation}){
     return(
         <div className="ticket" onClick={handleClick}>
             <h3>{reservation.projectName}</h3>
-            <span className="datetime2">Date : {reservation.reservationDate} au {reservation.returnDate}</span>
+            <span className="datetime2">Date : {new Intl.DateTimeFormat('fr-FR').format(new Date(reservation.reservationDate))} au {new Intl.DateTimeFormat('fr-FR').format(new Date(reservation.returnDate))}</span>
             <span className="material-symbols-rounded">arrow_forward_ios</span>
             <div className="color-status" style={{ backgroundColor: statusColor}}></div>
         </div>

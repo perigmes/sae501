@@ -16,7 +16,6 @@ const Demarches = () => {
       dispatch(loadReservations());
     }
   }, [dispatch, reservations]);
-  console.log(`Reservation : ${selectedReservation}`);
   return isLoading ? (
     <div>Chargement des réservations...</div>
   ) : (
