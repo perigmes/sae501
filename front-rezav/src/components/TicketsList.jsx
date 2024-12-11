@@ -20,3 +20,4 @@ const TicketsList = ({ reservations, onReservationClick }) => {
 };
 
 export default TicketsList;
+
