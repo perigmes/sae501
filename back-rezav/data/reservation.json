@@ -11,7 +11,12 @@
       {
         "firstName": "Charlie",
         "lastName": "Charron",
-        "TD": "TD33"
+        "groupeTd": "TD33"
+      },
+      {
+        "firstName": "Laura",
+        "lastName": "Brunel",
+        "groupeTd": "TD23"
       }
     ],
     "audiovisualPlan": "https://example.com/plan-implantation-audiovisuel.pdf",
@@ -49,8 +54,8 @@
   {
     "_id": "0e7ba1e6-925b-4c91-87e5-d93d97121c6a",
     "userId": "testUser",
-    "reservationDate": "2024-11-28T09:00:00Z",
-    "returnDate": "2024-11-30T09:00:00Z",
+    "reservationDate": "2024-11-28T09:15:00Z",
+    "returnDate": "2024-11-30T09:30:00Z",
     "projectName": "test",
     "projectDescription": "erg",
     "groupMembers": [

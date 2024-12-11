@@ -7,9 +7,8 @@ import { selectReservation } from "../features/tickets/ticketSlice";
 function Ticket({reservation}){
     const dispatch = useDispatch();
 
-    const handleIconClick = () => {
-        console.log("id : "+reservation._id)
-        dispatch(selectReservation(reservation._id))
+    const handleClick = () => {
+        dispatch(selectReservation(reservation))
         
     };
     const statusColor = useSelector((state) => 
@@ -17,10 +16,10 @@ function Ticket({reservation}){
     );
     
     return(
-        <div className="ticket" onClick={handleIconClick}>
+        <div className="ticket" onClick={handleClick}>
             <h3>{reservation.projectName}</h3>
-            <span className="datetime">Date : {reservation.reservationDate} au {reservation.returnDate}</span>
-            <span className="material-icons-round">arrow_forward_ios</span>
+            <span className="datetime2">Date : {reservation.reservationDate} au {reservation.returnDate}</span>
+            <span className="material-symbols-rounded">arrow_forward_ios</span>
             <div className="color-status" style={{ backgroundColor: statusColor}}></div>
         </div>
     );

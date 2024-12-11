@@ -7,7 +7,6 @@ export const loadReservations = createAsyncThunk(
   async (_, rejectWithValue) => {
     try{
       const response = await axios.get(`${URL_API_RESERVATIONS}/reservation`);
-
       return response.data;
     } catch (error) {
       return rejectWithValue("L'application est actuellement indisponible, Veuillez réessayer ultérieurement en cas de problème lors du chargement des réservations");

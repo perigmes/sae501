@@ -7,7 +7,7 @@ const TicketsList = ({ reservations, onReservationClick }) => {
       {reservations.length > 0 ? (
         reservations.map((reservation) => (
           <Ticket
-            key={reservation.id}
+            key={reservation._id}
             reservation={reservation}
             onClick={() => onReservationClick(reservation)}
           />
