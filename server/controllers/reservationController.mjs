@@ -3,7 +3,7 @@ import db from "../db/conn.mjs";
 
 export const PostReservation = async (req, res) => {
     // Lire les fichiers JSON en parallèle
-   let collection = await db.collection('reservation');
+   let collection = await db.collection('reservations');
    let collection2 = db.collection('reservation_status');
 
             try {
@@ -27,9 +27,8 @@ export const PostReservation = async (req, res) => {
   // GET pour récupérer les réservations
  export  const GetReservation = async(req, res) => {
    try{
-        let collection = await db.collection('reservation');
-    let newDocument = req.body;
-    let result = await collection.find(newDocument).toArray();
+        let collection = await db.collection('reservations');
+    let result = await collection.find().toArray();
     res.status(200).json(result);
    }
   catch (err) {
