@@ -12,6 +12,7 @@ const ObjectsByFilter = ({ filter }) => {
     const reservations = useSelector(selectReservations);
     const filterByDate = curriedFilterObjectsByDate(reservations)(startDT)(returnDT)(allObjects);
 
+
     let objects;
     if (searchBarre.trim().length === 0) {
         if (filterType === "category") {
@@ -25,7 +26,6 @@ const ObjectsByFilter = ({ filter }) => {
             objects = [...filterByDate].filter(object => object.categorie && normalizeString(object.categorie).includes(normalizeString(filter)));
         }
     }
-
 
     return (
         objects.length > 0 ? (<>

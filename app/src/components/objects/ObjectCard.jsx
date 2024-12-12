@@ -9,6 +9,7 @@ const ObjectCard = ({ object }) => {
     const objIsSelectable = useSelector(selectObjIsSelectable);
     const selectedObjects = useSelector(selectSelectedObjects);
     const isSelected = selectedObjects.includes(_id);
+
     const [cardHeight, setCardHeight] = useState(0);
     const dispatch = useDispatch();
     const searchBarre = useSelector(selectSearchBarre)
@@ -20,6 +21,7 @@ const ObjectCard = ({ object }) => {
                 dispatch(deselectObject(_id));
             } else {
                 dispatch(selectObject(_id));
+
             }
         } else {
             dispatch(setInfoObject(object));
@@ -49,6 +51,7 @@ const ObjectCard = ({ object }) => {
     useEffect(() => {
         const resizeCard = () => {
             const card = document.getElementById(_id);
+
             const cardWidth = card.offsetWidth;
     
             // Assurez-vous que la hauteur est égale à la largeur
@@ -85,6 +88,7 @@ const ObjectCard = ({ object }) => {
     return (
         <div 
             id={`${_id}`} 
+
             className={`object-card${objIsSelectable ? " selectable" : ""}${objIsSelectable && isSelected ? " selected" : ""}`} 
             data-image-name={picture} 
             onClick={(e) => { e.stopPropagation(); handleClick(); }} 
