@@ -4,10 +4,10 @@ import { useState, useEffect } from "react";
 import { deselectObject, selectObject, setInfoObject } from "../../features/demande/demandeSlice";
 
 const ObjectCard = ({ object }) => {
-    const { id, name, picture } = object;
+    const { _id, name, picture } = object;
     const objIsSelectable = useSelector(selectObjIsSelectable);
     const selectedObjects = useSelector(selectSelectedObjects);
-    const isSelected = selectedObjects.includes(id);
+    const isSelected = selectedObjects.includes(_id);
     const [cardHeight, setCardHeight] = useState(0);
     const dispatch = useDispatch();
     const searchBarre = useSelector(selectSearchBarre)
@@ -16,9 +16,9 @@ const ObjectCard = ({ object }) => {
     const handleClick = () => {
         if (objIsSelectable) {
             if (isSelected) {
-                dispatch(deselectObject(id));
+                dispatch(deselectObject(_id));
             } else {
-                dispatch(selectObject(id));
+                dispatch(selectObject(_id));
             }
         } else {
             dispatch(setInfoObject(object));
@@ -47,7 +47,7 @@ const ObjectCard = ({ object }) => {
 
     useEffect(() => {
         const resizeCard = () => {
-            const card = document.getElementById(id);
+            const card = document.getElementById(_id);
             const cardWidth = card.offsetWidth;
     
             // Assurez-vous que la hauteur est égale à la largeur
@@ -60,7 +60,7 @@ const ObjectCard = ({ object }) => {
         return () => {
             window.removeEventListener('resize', resizeCard);
         };
-    }, [id]);
+    }, [_id]);
 
     const highlightText = (text, highlight) => {
         if (!highlight) return text;
@@ -83,7 +83,7 @@ const ObjectCard = ({ object }) => {
 
     return (
         <div 
-            id={`${id}`} 
+            id={`${_id}`} 
             className={`object-card${objIsSelectable ? " selectable" : ""}${objIsSelectable && isSelected ? " selected" : ""}`} 
             data-image-name={picture} 
             onClick={(e) => { e.stopPropagation(); handleClick(); }} 
@@ -95,13 +95,13 @@ const ObjectCard = ({ object }) => {
                     <input 
                         className="rezav-checkbox" 
                         type="checkbox" 
-                        id={`checkbox-${id}`} 
+                        id={`checkbox-${_id}`} 
                         checked={isSelected} 
                         onChange={handleCheckboxChange} 
                         style={{ display: "none" }} 
                     />
                     <label 
-                        htmlFor={`checkbox-${id}`} 
+                        htmlFor={`checkbox-${_id}`} 
                         className="rezav-checkbox-label" 
                         onClick={(e) => e.stopPropagation()} // Empêcher la propagation du clic
                     ></label>

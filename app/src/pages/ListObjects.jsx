@@ -17,6 +17,8 @@ const ListObjects = () => {
     const errorFormDemande = useSelector(selectErrorFormDemande)
     const {startDT, returnDT} = useSelector(selectReservationDates);
     const selectedObjects = useSelector(selectSelectedObjects);
+
+    
     useEffect(() => {
         if (selectedObjects.length === 0 || startDT.trim().length === 0 || returnDT.trim().length === 0) {
             dispatch(setErrorFormDemande(true));
