@@ -37,6 +37,19 @@ export const PostReservation = async (req, res) => {
     res.status(500).json({ error: "Erreur lors de la récupération des réservations" });
     
   }}
+
+export const GetReservationsByUserId = async (req, res) => {
+  try{
+    let userId = req.params.userId;
+    let collection = await db.collection('reservations');
+    let result = await collection.find({userId:userId}).toArray();
+    res.status(200).json(result);
+  }
+  catch{
+    res.status(500).json({ error: "Erreur lors de la récupération des réservations de l'utilisateur" });
+  }
+}
+
   
  export const UpdateReservationStatus= async (req, res) => {
     const id = req.params.id;
