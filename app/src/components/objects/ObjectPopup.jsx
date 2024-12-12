@@ -1,5 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
-import { selectObjInfos } from "../../features/demande/demandeSelector";
+import { useDispatch } from "react-redux";
 import { setInfoObject } from "../../features/demande/demandeSlice";
 
 const ObjectPopup = () => {

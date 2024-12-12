@@ -88,9 +88,9 @@ const ObjectCard = ({ object }) => {
     return (
         <div 
             id={`${_id}`} 
-
             className={`object-card${objIsSelectable ? " selectable" : ""}${objIsSelectable && isSelected ? " selected" : ""}`} 
-            data-image-name={picture} 
+            data-image-name={picture}
+            title={name}
             onClick={(e) => { e.stopPropagation(); handleClick(); }} 
             style={{
                 height: `${cardHeight}px`,

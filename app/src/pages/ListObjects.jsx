@@ -24,13 +24,13 @@ const ListObjects = () => {
         } else {
             dispatch(setErrorFormDemande(false));
         }
-    }, [selectedObjects, startDT, returnDT])
+    }, [selectedObjects, startDT, returnDT, dispatch])
 
     useEffect(() => {
         if (filterType !== "category" && filterType !== "alphabet" && filterType!== "alphabet-reverse") {
             dispatch(setFilter("category"));
         }
-    }, [filterType])
+    }, [filterType, dispatch])
     
     let filters
     if (filterType === "category") {

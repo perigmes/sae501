@@ -9,6 +9,7 @@ import './assets/styles/card.scss';
 import { loadMateriel, loadReservation } from './features/demande/reservationsAsyncAction';
 import { Reservation } from './pages/Reservation';
 import Demarches from './pages/Demarches';
+import { Navigate } from 'react-router-dom';
 
 function App() {
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ function App() {
       <BrowserRouter>
       <MainHeader/>
         <Routes>
-          <Route path="/" element={<ListObjects />} />
+          <Route path="/" element={<Navigate to="/list-objects" replace />} />
           <Route path="/list-objects" element={<ListObjects />} />
           <Route path="/formulaire-reservation" element={<Formulaire />} />
           <Route path='/reservation-confirmation/:response/:id' element={<Reservation/>}/>

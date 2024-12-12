@@ -8,7 +8,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import 'dayjs/locale/fr';
 import dayjs from "dayjs";
-import { formatErrorMessage, getDatePlusDays } from "../utils/tools";
+import { getDatePlusDays } from "../utils/tools";
 import '../assets/styles/main-header.scss';
 
 
@@ -26,8 +26,8 @@ const MainHeader = () => {
     const [returnValue, setReturnValue] = useState(null);
 
     useEffect(() => {
-        const startValue = startDT ? dayjs(startDT) : dayjs(miniDate);
-        const returnValue = returnDT ? dayjs(returnDT) : null;
+        startDT ? setStartValue(dayjs(startDT)) : setStartValue(dayjs(miniDate));
+        returnDT ? setReturnValue(dayjs(returnDT)) : setReturnValue(null);
     }, []);
 
     const [errorMessage, setErrorMessage] = useState("");
