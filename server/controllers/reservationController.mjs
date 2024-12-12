@@ -30,6 +30,7 @@ export const PostReservation = async (req, res) => {
         let collection = await db.collection('reservations');
     let newDocument = req.body;
     let result = await collection.find(newDocument).toArray();
+
     res.status(200).json(result);
    }
   catch (err) {

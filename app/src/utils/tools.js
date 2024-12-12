@@ -79,3 +79,4 @@ const filterObjectsByDate = (reservations, startDT, returnDT, objects) =>
 
 // Curryfication de la fonction principale
 export const curriedFilterObjectsByDate = curry(filterObjectsByDate);
+
