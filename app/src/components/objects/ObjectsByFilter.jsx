@@ -2,7 +2,6 @@ import { useSelector } from "react-redux";
 import { selectFilter, selectObjects, selectReservationDates, selectReservations, selectSearchBarre } from "../../features/demande/demandeSelector";
 import ObjectCard from "./ObjectCard";
 import { curriedFilterObjectsByDate, normalizeString } from "../../utils/tools";
-import { useEffect, useState } from "react";
 
 const ObjectsByFilter = ({ filter }) => {
     const allObjects = useSelector(selectObjects);
