@@ -32,16 +32,28 @@ export const GetItemById = async (req, res) => {
    
   }
 
-export const DeleteStateItem = async (req, res) => {
+export const DeleteItem = async (req, res) => {
   let collection = await db.collection('materiel');
+  let id = req.params.id;
   try {
-      let result = await collection.updateMany({}, { $unset: { state: "" } });
-      res.status(200).json({ message: "Propriété 'state' supprimée de tous les items", result });
+      let result = await collection.deleteOne({_id:id},{});
+      res.status(200).json({ message: "L'objet a bien été supprimé", result });
   } catch (err) {
       console.error(err);
-      return res.status(500).json({ error: "Erreur lors de la suppression de la propriété 'state'" });
+      return res.status(500).json({ error: "Erreur lors de la suppression de l'objet" });
   }
 };
+export const AddItem = async (req, res) => {
+  let collection = await db.collection('materiel');
+  let item = req.body;
+  try {
+      let result = await collection.insertOne(item);
+      res.status(200).json({ message: "Item ajouté avec succès", result });
+  } catch (err) {
+      console.error(err);
+      return res.status(500).json({ error: "Erreur lors de l'ajout de l'item" });
+  }
+}
 
 export const EditItem = async (req, res) => {
   let id = req.params.id;
