@@ -27,9 +27,10 @@
         "firstName": "Emma",
         "lastName": "Martin",
         "groupeTd": "TD21"
+
       }
     ],
-    "audiovisualPlan": "https://example.com/plan-implantation-audiovisuel.pdf",
+    "implementationPlan": "https://example.com/plan-implantation-audiovisuel.pdf",
     "items": [
       "66e91f52a81b36504c2a5aa2",
       "66e92149a81b36504c2a5aa7",
