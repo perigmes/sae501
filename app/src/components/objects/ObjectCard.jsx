@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectObjIsSelectable, selectSearchBarre, selectSelectedObjects } from "../../features/demande/demandeSelector";
 import { useState, useEffect } from "react";
 import { deselectObject, selectObject, setInfoObject } from "../../features/demande/demandeSlice";
+import { normalizeString } from "../../utils/tools";
 
 const ObjectCard = ({ object }) => {
     const { _id, name, picture } = object;
@@ -68,7 +69,7 @@ const ObjectCard = ({ object }) => {
     const highlightText = (text, highlight) => {
         if (!highlight) return text;
 
-        const index = text.toLowerCase().indexOf(highlight.toLowerCase());
+        const index = normalizeString(text).indexOf(normalizeString(highlight));
         if (index === -1) return text;
 
         const beforeMatch = text.substring(0, index);
