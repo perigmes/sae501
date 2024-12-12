@@ -1,93 +1,183 @@
 import { useDispatch, useSelector } from "react-redux";
-import { selectObjIsSelectable, selectReservationDates } from "../features/demande/demandeSelector";
+import { selectErrorFormDemande, selectObjIsSelectable, selectReservationDates } from "../features/demande/demandeSelector";
 import { useLocation } from 'react-router-dom';
-import { useEffect, useState } from "react";
-import { setStartDate } from "../features/demande/demandeSlice";
+import { setErrorFormDemande, setReturnDT, setSearchBarre, setStartDT } from "../features/demande/demandeSlice";
+import { useEffect, useRef, useState } from "react";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
+import 'dayjs/locale/fr';
+import dayjs from "dayjs";
+import { formatErrorMessage, getDatePlusDays } from "../utils/tools";
+import '../assets/styles/main-header.scss';
+
 
 const MainHeader = () => {
     const dispatch = useDispatch();
-    const objIsSelectable = useSelector(selectObjIsSelectable); // Récupérer l'état indiquant si l'objet est sélectionnable depuis le contexte
-    const { startDate, returnDate } = useSelector(selectReservationDates);// Récupérer les dates de la réservation depuis le contexte
-
-    const [startDateValue, setStartDateValue] = useState(null); // Valeur du champ input de date de début
-    const [startTimeValue, setStartTimeValue] = useState(null); // Valeur du champ input de heure de début
-    const [returnDateValue, setReturnDateValue] = useState(null); // Valeur du champ input de date de fin
-    const [returnTimeValue, setReturnTimeValue] = useState(null); // Valeur du champ input de heure de fin
-
-    // UseEffect pour synchroniser les champs aux changement des dates du contexte
-    useEffect(() => {
-        setStartDateValue(startDate ? startDate.split('T')[0] : null);
-        setStartTimeValue(startDate ? startDate.split('T')[1].slice(0, 5) : null);
-        setReturnDateValue(returnDate ? returnDate.split('T')[0] : null);
-        setReturnTimeValue(returnDate ? returnDate.split('T')[1].slice(0, 5) : null);
-    }, [startDate, returnDate])
-
-    const minimumStartDate = () => {
-        const today = new Date();
-        today.setDate(today.getDate() + 2);
-        return today.toISOString().split("T")[0];
-    };
-    
-    const minDate = minimumStartDate();
-
+    const objIsSelectable = useSelector(selectObjIsSelectable); // Indique si l'objet est sélectionnable
+    const { startDT, returnDT } = useSelector(selectReservationDates); // Dates de réservation depuis le store
     const location = useLocation();
+    const refStartDate = useRef(null);
+    const refReturnDate = useRef(null);
+    const errorFormDemande = useSelector(selectErrorFormDemande)
 
-    const handleDateTimeChange = (e) => {
-        const value = e.target.value;
+    const miniDate = dayjs(getDatePlusDays(2));
+    const [startValue, setStartValue] = useState(dayjs(miniDate));
+    const [returnValue, setReturnValue] = useState(null);
 
-        if (e.target.id === "date-du") {
-            if (value < minDate) {
-                return; 
-            }
-            
+    useEffect(() => {
+        const startValue = startDT ? dayjs(startDT) : dayjs(miniDate);
+        const returnValue = returnDT ? dayjs(returnDT) : null;
+    }, []);
 
-        } else if (e.target.id === "time-du") {
 
-        } else if (e.target.id === "date-au") {
-            if (value < minDate) {
-                console.log("Date de fin invalide")
-                return; 
-            }
-        } else if (e.target.id === "time-au") {
-            
+    // const handleStartDateChange = (newValue) => {
+        
+    //     if (newValue?.isValid() && newValue.isAfter(miniDate)) {
+    //       const newValueIso = dayjs(newValue).format('YYYY-MM-DDTHH:mm');
+    //       dispatch(setStartDT(newValueIso));
+    //       refStartDate.current?.parentElement.classList.remove("error");
+    //     } else if (newValue?.isValid() && newValue.isBefore(miniDate)) {
+    //       refStartDate.current?.parentElement.classList.add("error");
+    //       dispatch(setErrorFormDemande(true));
+    //       errors.push("la date d'emprunt doit être au moins dans 2 jours");
+    //       setErrorMessage(formatErrorMessage(errors));
+    //       dispatch(setStartDT(""));
+    //     } else if (!newValue?.isValid()) { 
+    //         dispatch(setStartDT(""));
+    //     }
+    // };
+
+    // const handleReturnDateChange = (newValue) => {
+    //     const dateMinimale = startDT ? dayjs(startDT) : dayjs(miniDate);
+        
+    //     if (newValue?.isValid() && newValue.isAfter(dateMinimale)) {
+    //         const newValueIso = dayjs(newValue).format('YYYY-MM-DDTHH:mm');
+    //         dispatch(setReturnDT(newValueIso));
+    //         refReturnDate.current?.parentElement.classList.remove("error");
+    //     } else if (newValue?.isValid() && newValue.isBefore(dateMinimale)) {
+    //         refReturnDate.current?.parentElement.classList.add("error");
+    //         dispatch(setErrorFormDemande(true));
+    //         errors.push("la date de retour doit être postérieure à la date d'emprunt");
+    //         setErrorMessage(formatErrorMessage(errors));
+    //         dispatch(setReturnDT(""));
+    //     } else if (!newValue?.isValid()) { 
+    //         dispatch(setReturnDT(""));
+    //     }
+    // };
+
+    const [errorMessage, setErrorMessage] = useState("");
+    const handleDateChange = (type, newValue) => {
+        
+        let dateMinimale = dayjs(miniDate);
+        if (type === "return") {
+            dateMinimale = startDT ? dayjs(startDT) : dayjs(miniDate);
         }
-        dispatch(setStartDate())
+
+        if (newValue?.isValid() && (newValue.isSame(dateMinimale) || newValue.isAfter(dateMinimale))) {
+            const newValueIso = dayjs(newValue).format('YYYY-MM-DDTHH:mm');
+            if (type === "start") {
+                dispatch(setStartDT(newValueIso));
+                refStartDate.current?.parentElement.classList.remove("error");
+            } else if (type === "return") {
+                dispatch(setReturnDT(newValueIso));
+                refReturnDate.current?.parentElement.classList.remove("error");
+            }
+        } else if (newValue?.isValid() && newValue.isBefore(dateMinimale)) {
+            if (type === "start") {
+                refStartDate.current?.parentElement.classList.add("error");
+                dispatch(setErrorFormDemande(true));
+                dispatch(setStartDT(""));
+            } else if (type === "return") {
+                refReturnDate.current?.parentElement.classList.add("error");
+                dispatch(setErrorFormDemande(true));
+                dispatch(setReturnDT(""));
+            }
+            // setErrorMessage(formatErrorMessage(errors));
+        } else if (!newValue?.isValid()) {
+            if (type === "start") {
+                dispatch(setStartDT(""));
+                refStartDate.current?.parentElement.classList.remove("error");
+            } else if (type === "return") {
+                dispatch(setReturnDT(""));
+                refReturnDate.current?.parentElement.classList.remove("error");
+            }
+        }
+
+        const startError = refStartDate.current.parentElement.classList.contains("error");
+        const returnError = refReturnDate.current.parentElement.classList.contains("error");
+        console.log(startError, returnError);
+
+        if (errorFormDemande && startError && returnError) {
+            setErrorMessage("La date d'emprunt doit etre au moins au " + dayjs(miniDate).format('DD/MM/YYYY') + " et la date de retour doit etre postérieure à la date d'emprunt.");
+        } else if ( errorFormDemande && startError && !returnError) {
+            setErrorMessage("La date d'emprunt doit etre au moins au " + dayjs(miniDate).format('DD/MM/YYYY') + ".");
+        } else if (errorFormDemande && !startError && returnError) {
+            setErrorMessage("La date de retour doit etre postérieure à la date d'emprunt.");
+        } else if (!startError && !returnError) {
+            setErrorMessage("");
+        }
+
+    };
+
+    const handleSearchBarre = (e) => {
+        const search = e.target.value;
+        dispatch(setSearchBarre(search));
     };
 
     return (
-        <header className={`main-hdr${objIsSelectable ? ' list-obj-selectable' : ''}`}>
-            <h2 className="page-title">{location.pathname === '/list-objects' ? "Liste du matériel" : "Formulaire de réservation"}</h2>
+        <header className={`main-hdr${location.pathname === '/list-objects' ? ' list-obj' : ''}${location.pathname === '/list-objects' && objIsSelectable ? ' selectable' : ''}${location.pathname === '/formulaire-reservation' ? ' res-form' : ''}`}>
+            <h2 className="page-title">
+                {location.pathname === '/list-objects' ? "Liste du matériel" : "Formulaire de réservation"}
+            </h2>
             {location.pathname === '/list-objects' && objIsSelectable && (
-                <>
-                    <div className="rezav-input input-date">
-                        <label htmlFor="date-du">Du</label>
-                        <input type="date" id="date-du" value={startDateValue} min={minDate} onChange={handleDateTimeChange}/>
+                <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="fr">
+                    <div className="date-form-container">
+                        <div className="rezav-input input-date">
+                            <label htmlFor="date-du">Du</label>
+                            <DateTimePicker
+                                className="input"
+                                id="date-du"
+                                minDate={miniDate}
+                                value={startValue} 
+                                onChange={(newValue) => handleDateChange("start", newValue)}
+                                ref={refStartDate}
+                            />
+                        </div>
+                        <div className="rezav-input input-date">
+                            <label htmlFor="date-au">Au</label>
+                            <DateTimePicker
+                                className="input"
+                                id="date-au"
+                                minDate={startDT ? dayjs(startDT) : dayjs(miniDate)} 
+                                value={returnValue}
+                                onChange={(newValue) => handleDateChange("return", newValue)}
+                                ref={refReturnDate}
+                            />
+                        </div>
+                        {errorFormDemande && errorMessage.trim().length > 0 ? (
+                            <span className="date-error">{errorMessage}</span>
+                        ) : ""}
                     </div>
-                    <div className="rezav-input input-time">
-                        <label htmlFor="time-du">À</label>
-                        <input type="time" id="time-du" value={startTimeValue} onChange={handleDateTimeChange}/>
-                    </div>
-                    <div className="rezav-input input-date">
-                        <label htmlFor="date-au">Au</label>
-                        <input type="date" id="date-au" value={returnDateValue} min={minDate} onChange={handleDateTimeChange}/>
-                    </div>
-                    <div className="rezav-input input-time">
-                        <label htmlFor="time-au">À</label>
-                        <input type="time" id="time-au" value={returnTimeValue} onChange={handleDateTimeChange}/>
-                    </div>
-                </>
+                </LocalizationProvider>
             )}
             {location.pathname === '/list-objects' && (
-                <>
-                    <button className="rezav-button-2 filter-btn"><span className="material-symbols-rounded">tune</span>Filtrer</button>
+                <div className="search-filter-container">
+                    <button className="rezav-button-2 filter-btn">
+                        <span className="material-symbols-rounded">tune</span>Filtrer
+                    </button>
                     <div className="rezav-input search-barre">
-                        <input type="search" name="search-objects" id="searchObj" placeholder="Rechercher"/>
+                        <input
+                            type="search"
+                            name="search-objects"
+                            id="searchObj"
+                            placeholder="Rechercher"
+                            onInput={handleSearchBarre}
+                        />
                         <span className="material-symbols-rounded">search</span>
                     </div>
-                </>
+                </div>
             )}
-
-
         </header>
     );
 };

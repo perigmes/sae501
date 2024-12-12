@@ -1,57 +1,77 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { addReservation, addReservationStatus, loadMateriel } from './reservationsAsyncAction';
+import { addReservation, loadMateriel, loadReservation, loadReservations } from './reservationsAsyncAction';
+import { getDatePlusDays } from '../../utils/tools';
 
 const demandeSlice = createSlice({
     name: 'demande',
     initialState: {
         objects: [],
+        reservations: [],
         objIsSelectable: false,
-        dataForm: {
-            startDate: "", 
-            returnDate: "",
-            idSelectedObjects: [],
+        searchBarre: "",
+        loading: false,
+        filter: "category",
+        dataDemande: {
+            id: "",
+            userId: "", 
+            startDT: getDatePlusDays(2),
+            returnDT: "",
+            name: "",
+            desc: "",
+            justif: "",
+            plan: "",
+            userId: "",
+            group: [],
+            objects: [],
         },
         objInfos: {},
-        userId:'',
-        reservationsStatus:[],
-        reservations:[],
-        errors:{
-            apiErrorLoad: null,
+        errors: {
+            apiErrorObjectsLoad: null,
+            apiErrorReservationLoad: null,
             apiErrorAdd: null,
+            errorFormDemande: false,
         }
     },
     reducers: {
-
         setObjects: (state, action) => {
             state.objects = action.payload;
         },
-        setObjIsSelectable: (state) => {
-            state.objIsSelectable = !state.objIsSelectable;
+        setSearchBarre: (state, action) => {
+            state.searchBarre = action.payload;
         },
-        setIdSelectedObjects: (state, action) => {
-            state.dataForm.idSelectedObjects = action.payload;
+        setFilter: (state, action) => {
+            state.filter = action.payload;
+        },
+        setErrorFormDemande: (state, action) => {
+            state.errors.errorFormDemande = action.payload;
+        },
+        setObjIsSelectable: (state, action) => {
+            state.objIsSelectable = action.payload;
+        },
+        setSelectedObjects: (state, action) => {
+            state.dataDemande.objects = action.payload;
         },
         selectObject: (state, action) => {
             const id = action.payload;
-            if (!state.dataForm.idSelectedObjects.includes(id)) {
-                state.dataForm.idSelectedObjects.push(id);
+            if (!state.dataDemande.objects.includes(id)) {
+                state.dataDemande.objects.push(id);
             }
         },
         deselectObject: (state, action) => {
             const id = action.payload;
-            state.dataForm.idSelectedObjects = state.dataForm.idSelectedObjects.filter(selectedId => selectedId !== id);
+            state.dataDemande.objects = state.dataDemande.objects.filter(selectedId => selectedId !== id);
         },
         setInfoObject: (state, action) => {
             state.objInfos =  action.payload;
         },
-        clearObjectSelections: (state) => {
-            state.dataForm.idSelectedObjects = [];
+        clearDataDemande: (state) => {
+            state.dataDemande = demandeSlice.getInitialState().dataDemande;
         },
-        setStartDate: (state, action) => {
-            state.dataForm.startDate = action.payload;
+        setStartDT: (state, action) => {
+            state.dataDemande.startDT = action.payload;
         },
-        setReturnDate: (state, action) => {
-            state.dataForm.returnDate = action.payload;
+        setReturnDT: (state, action) => {
+            state.dataDemande.returnDT = action.payload;
         },
         
     },
@@ -59,16 +79,16 @@ const demandeSlice = createSlice({
             builder
             .addCase(loadMateriel.pending, (state) => {
                 state.loading = true;
-                state.errors.apiErrorLoad = null;
+                state.errors.apiErrorObjectsLoad = null;
             })
             .addCase(loadMateriel.fulfilled, (state, action) => {
                 state.objects = action.payload;
                 state.loading = false;
-                state.errors.apiErrorLoad = null;
+                state.errors.apiErrorObjectsLoad = null;
             })
             .addCase(loadMateriel.rejected, (state, action) => {
                 state.loading = false;
-                state.errors.apiErrorLoad = action.payload;
+                state.errors.apiErrorObjectsLoad = action.payload;
             })
             .addCase(addReservation.pending, (state,action) => {
                 state.errors.apiErrorAdd = null;
@@ -79,10 +99,9 @@ const demandeSlice = createSlice({
             .addCase(addReservation.rejected, (state, action) => {
                 state.errors.apiErrorAdd = action.payload;
             })
-         
 
     }
 });
-export const { setObjects, setObjIsSelectable, setIdSelectedObjects, selectObject, deselectObject, setInfoObject, clearObjectSelections, setStartDate, setReturnDate } = demandeSlice.actions;
+export const { setObjects, setSearchBarre, setFilter, setErrorFormDemande, setObjIsSelectable, setobjects, selectObject, deselectObject, setInfoObject, clearDataDemande, setStartDT, setReturnDT } = demandeSlice.actions;
 
 export default demandeSlice.reducer;
