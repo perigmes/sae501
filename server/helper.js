@@ -65,7 +65,7 @@ const sendResponseEmail = async (justification) => {
         subject: "Confirmation de réservation",
         html: `
             <h1>Votre réservation a été ${justification?'refusée': 'acceptée'}</h1>
-            <p> ${justification ??'test'}</p>
+            <p> ${justification ??''}</p>
         
             <p>Cordialement,</p>
             <p><em>M Houliere</em></p>
