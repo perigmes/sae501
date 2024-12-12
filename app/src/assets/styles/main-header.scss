@@ -37,6 +37,20 @@
             gap: 10px;
             justify-self: flex-start;
             padding-left: 10px;
+            position: relative;
+            overflow: visible;
+
+            .date-error {
+                position: absolute;
+                bottom: 0;
+                left: 15px;
+                transform: translateY(calc(100% + 2px));
+                font-family: $main-font;
+                color: $dark-red-rezav;
+                font-size: $font-size-12;
+                width: fit-content;
+                white-space: nowrap;
+            }
         }
     }
 }

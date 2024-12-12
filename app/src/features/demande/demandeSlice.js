@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { addReservation, loadMateriel, loadReservation, loadReservations } from './reservationsAsyncAction';
+import { addReservation, loadMateriel, loadReservation } from './reservationsAsyncAction';
 import { getDatePlusDays } from '../../utils/tools';
 
 const demandeSlice = createSlice({
@@ -9,7 +9,8 @@ const demandeSlice = createSlice({
         reservations: [],
         objIsSelectable: false,
         searchBarre: "",
-        loading: false,
+        loadingObjects: false,
+        loadingReservations: false,
         filter: "category",
         dataDemande: {
             id: "",
@@ -20,7 +21,6 @@ const demandeSlice = createSlice({
             desc: "",
             justif: "",
             plan: "",
-            userId: "",
             group: [],
             objects: [],
         },
@@ -78,17 +78,30 @@ const demandeSlice = createSlice({
     extraReducers: (builder) => {
             builder
             .addCase(loadMateriel.pending, (state) => {
-                state.loading = true;
+                state.loadingObjects = true;
                 state.errors.apiErrorObjectsLoad = null;
             })
             .addCase(loadMateriel.fulfilled, (state, action) => {
                 state.objects = action.payload;
-                state.loading = false;
+                state.loadingObjects = false;
                 state.errors.apiErrorObjectsLoad = null;
             })
             .addCase(loadMateriel.rejected, (state, action) => {
-                state.loading = false;
+                state.loadingObjects = false;
                 state.errors.apiErrorObjectsLoad = action.payload;
+            })
+            .addCase(loadReservation.pending, (state) => {
+                state.loadingReservations = true;
+                state.errors.apiErrorReservationLoad = null;
+            })
+            .addCase(loadReservation.fulfilled, (state, action) => {
+                state.reservations = action.payload;
+                state.loadingReservations = false;
+                state.errors.apiErrorReservationLoad = null;
+            })
+            .addCase(loadReservation.rejected, (state, action) => {
+                state.loadingReservations = false;
+                state.errors.apiErrorReservationLoad = action.payload;
             })
             .addCase(addReservation.pending, (state,action) => {
                 state.errors.apiErrorAdd = null;

@@ -28,7 +28,9 @@ export const PostReservation = async (req, res) => {
  export  const GetReservation = async(req, res) => {
    try{
         let collection = await db.collection('reservations');
-    let result = await collection.find().toArray();
+    let newDocument = req.body;
+    let result = await collection.find(newDocument).toArray();
+
     res.status(200).json(result);
    }
   catch (err) {

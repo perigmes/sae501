@@ -60,3 +60,23 @@ export const formatErrorMessage = (errors) => {
       return formattedErrors;
   }
 };
+
+// Fonction utilitaire pour curryfication
+const curry = func => (...args) => 
+  args.length >= func.length ? func(...args) : (...nextArgs) => curry(func)(...args, ...nextArgs);
+
+// Vérifie le chevauchement entre deux périodes
+const isOverlap = (start1, end1, start2, end2) => 
+  start1 <= end2 && start2 <= end1;
+
+// Filtre les objets en fonction des réservations et des dates
+const filterObjectsByDate = (reservations, startDT, returnDT, objects) => 
+  objects.filter(object => 
+      !reservations.some(({ reservationDate, returnDate, items }) => 
+          items.includes(object._id) && isOverlap(startDT, returnDT, reservationDate, returnDate)
+      )
+  );
+
+// Curryfication de la fonction principale
+export const curriedFilterObjectsByDate = curry(filterObjectsByDate);
+

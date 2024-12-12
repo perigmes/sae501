@@ -9,7 +9,6 @@ export const selectSearchBarre = (state) => state.demande.searchBarre;
 export const selectFilter = (state) => state.demande.filter;
 export const selectErrorFormDemande = (state) => state.demande.errors.errorFormDemande;
 
-
 export const selectReservationDates = createSelector(
     [selectDataDemande],
     (dataDemande) => ({

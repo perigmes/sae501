@@ -30,42 +30,6 @@ const MainHeader = () => {
         const returnValue = returnDT ? dayjs(returnDT) : null;
     }, []);
 
-
-    // const handleStartDateChange = (newValue) => {
-        
-    //     if (newValue?.isValid() && newValue.isAfter(miniDate)) {
-    //       const newValueIso = dayjs(newValue).format('YYYY-MM-DDTHH:mm');
-    //       dispatch(setStartDT(newValueIso));
-    //       refStartDate.current?.parentElement.classList.remove("error");
-    //     } else if (newValue?.isValid() && newValue.isBefore(miniDate)) {
-    //       refStartDate.current?.parentElement.classList.add("error");
-    //       dispatch(setErrorFormDemande(true));
-    //       errors.push("la date d'emprunt doit être au moins dans 2 jours");
-    //       setErrorMessage(formatErrorMessage(errors));
-    //       dispatch(setStartDT(""));
-    //     } else if (!newValue?.isValid()) { 
-    //         dispatch(setStartDT(""));
-    //     }
-    // };
-
-    // const handleReturnDateChange = (newValue) => {
-    //     const dateMinimale = startDT ? dayjs(startDT) : dayjs(miniDate);
-        
-    //     if (newValue?.isValid() && newValue.isAfter(dateMinimale)) {
-    //         const newValueIso = dayjs(newValue).format('YYYY-MM-DDTHH:mm');
-    //         dispatch(setReturnDT(newValueIso));
-    //         refReturnDate.current?.parentElement.classList.remove("error");
-    //     } else if (newValue?.isValid() && newValue.isBefore(dateMinimale)) {
-    //         refReturnDate.current?.parentElement.classList.add("error");
-    //         dispatch(setErrorFormDemande(true));
-    //         errors.push("la date de retour doit être postérieure à la date d'emprunt");
-    //         setErrorMessage(formatErrorMessage(errors));
-    //         dispatch(setReturnDT(""));
-    //     } else if (!newValue?.isValid()) { 
-    //         dispatch(setReturnDT(""));
-    //     }
-    // };
-
     const [errorMessage, setErrorMessage] = useState("");
     const handleDateChange = (type, newValue) => {
         
@@ -109,9 +73,9 @@ const MainHeader = () => {
         console.log(startError, returnError);
 
         if (errorFormDemande && startError && returnError) {
-            setErrorMessage("La date d'emprunt doit etre au moins au " + dayjs(miniDate).format('DD/MM/YYYY') + " et la date de retour doit etre postérieure à la date d'emprunt.");
+            setErrorMessage("La date d'emprunt doit être minimum au " + dayjs(miniDate).format('DD/MM/YYYY') + " et la date de retour doit être postérieure à la date d'emprunt.");
         } else if ( errorFormDemande && startError && !returnError) {
-            setErrorMessage("La date d'emprunt doit etre au moins au " + dayjs(miniDate).format('DD/MM/YYYY') + ".");
+            setErrorMessage("La date d'emprunt doit être minimum au " + dayjs(miniDate).format('DD/MM/YYYY') + ".");
         } else if (errorFormDemande && !startError && returnError) {
             setErrorMessage("La date de retour doit etre postérieure à la date d'emprunt.");
         } else if (!startError && !returnError) {

@@ -6,12 +6,14 @@ import { Formulaire } from './pages/Formulaire';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './assets/styles/commun.scss';
 import './assets/styles/card.scss';
-import { loadMateriel } from './features/demande/reservationsAsyncAction';
+import { loadMateriel, loadReservation } from './features/demande/reservationsAsyncAction';
 import { Reservation } from './pages/Reservation';
+
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(loadMateriel());
+    dispatch(loadReservation());
   }, [dispatch]);
 
   return (
