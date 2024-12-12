@@ -5,8 +5,8 @@
     "reservationDate": "2024-11-28T09:00:00Z",
     "returnDate": "2024-11-30T09:00:00Z",
     "projectName": "Film Documentaire",
-    "projectDescription": "Tournage d'un documentaire sur la nature en milieu urbain",
-    "materialJustification": "Besoin d'une camera pour filmer, d'un micro pour enregistrer le son et d'un éclairage pour éclairer la scène",
+    "projectDescription": "Notre projet consiste à réaliser un film documentaire mettant en lumière la coexistence entre la nature et l'urbanisme dans les grandes villes. Ce documentaire explorera les efforts faits pour préserver les espaces verts en milieu urbain, tout en documentant les défis environnementaux liés à l'expansion des infrastructures modernes. Nous souhaitons capturer des images immersives et enregistrer des témoignages pour sensibiliser le public à l'importance de la biodiversité en milieu urbain.",
+    "materialJustification": "Pour ce projet, nous avons besoin :\n- **D'une caméra professionnelle** pour capturer des images haute définition, essentielles pour les prises de vue détaillées des espaces naturels et des témoignages.\n- **D'un micro cravate** afin de garantir une qualité audio optimale lors des interviews et de minimiser les bruits de fond.\n- **D'un système d'éclairage mobile** pour filmer dans des conditions de faible luminosité, comme les zones ombragées ou les tournages en fin de journée.\n- **D'un stabilisateur** pour réaliser des plans en mouvement fluides, nécessaires aux séquences immersives représentant la vie urbaine et naturelle.",
     "groupMembers": [
       {
         "firstName": "Charlie",
@@ -17,6 +17,16 @@
         "firstName": "Laura",
         "lastName": "Brunel",
         "groupeTd": "TD23"
+      },
+      {
+        "firstName": "Lucas",
+        "lastName": "Dupont",
+        "groupeTd": "TD25"
+      },
+      {
+        "firstName": "Emma",
+        "lastName": "Martin",
+        "groupeTd": "TD21"
       }
     ],
     "audiovisualPlan": "https://example.com/plan-implantation-audiovisuel.pdf",

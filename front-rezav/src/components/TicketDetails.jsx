@@ -31,15 +31,29 @@ console.log("Materiels: ", materiels)
                 </span>
             </div>
             <div className="details-body">
+                <div className="description section-body">
                     <h4>Description du projet</h4>
                     <p>{reservation.projectDescription}</p>
+                </div>
+                <div className="listOfObjects section-body">
                     <h4>Liste du materiel</h4>
-                    <ul>
-                    </ul>
+                    <div>
+                        {materiels.map((item, index) => (
+                            <div key={index}>
+                            <img src={`/images/${item.picture}`} alt={item.name}/>
+                            <p>{item.name}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                <div className="justification section-body">
                     <h4>Justification du matériel</h4>
-                    <p>{reservation.materialJustification}</p>
-                    <h4>Plan d'implantation</h4>
-                    <OpenPDFButton pdfUrl={reservation.audiovisualPlan} />
+                    <p>{reservation.materialJustification}</p>  
+                </div>
+                <div className="pdfSection section-body">
+                   <h4>Plan d'implantation</h4>
+                    <OpenPDFButton pdfUrl={reservation.audiovisualPlan} /> 
+                </div>
             </div>
         </div>
     );
