@@ -1,23 +1,10 @@
-export class ReservationStatus {
-  idStatus: string;
-  status: 'pending' | 'accepted' | 'rejected';
+import mongoose from 'mongoose';
 
-  constructor(idStatus: string, status: 'pending' | 'accepted' | 'rejected') {
-    this.idStatus = idStatus;
-    this.status = status;
-  }
-
-  static validate(data: Partial<ReservationStatus>): boolean {
-    const validStatuses = ['pending', 'accepted', 'rejected'];
-
-    if (!data.idStatus || typeof data.idStatus !== 'string') {
-      throw new Error("Invalid 'idStatus'");
-    }
-
-    if (!data.status || !validStatuses.includes(data.status)) {
-      throw new Error("Invalid 'status'");
-    }
-
-    return true;
-  }
-}
+export const reservationStatusSchema = new mongoose.Schema({
+  idStatus: { type: String, required: true },
+  status: {
+    type: String,
+    enum: ['pending', 'accepted', 'rejected'], // Validation avec un enum
+    required: true,
+  },
+});

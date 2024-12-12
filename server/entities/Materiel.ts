@@ -1,56 +1,10 @@
-export class Materiel {
-  _id: string;
-  name: string;
-  picture: string;
-  description: string;
-  categorie: string;
-  isLate: boolean;
+import mongoose from 'mongoose';
+export const materielSchema = new mongoose.Schema({
+  _id: { type: mongoose.Schema.Types.ObjectId, required: true },
+  name: { type: String, required: true },
+  picture: { type: String, required: true },
+  description: { type: String, required: true },
+  categorie: { type: String, required: true },
+  isLate: { type: Boolean, required: true },
+});
 
-  constructor(
-    _id: string,
-    name: string,
-    picture: string,
-    description: string,
-    categorie: string,
-    isLate: boolean,
-  ) {
-    this._id = _id;
-    this.name = name;
-    this.picture = picture;
-    this.description = description;
-    this.categorie = categorie;
-    this.isLate = isLate;
-  }
-
-  static validate(data: Partial<Materiel>): boolean {
-    const validStates = ['Libre', 'Réservé', 'Indisponible'];
-
-    if (!data._id || typeof data._id !== 'string') {
-      throw new Error("Invalid '_id'");
-    }
-
-    if (!data.name || typeof data.name !== 'string') {
-      throw new Error("Invalid 'name'");
-    }
-
-    if (!data.picture || typeof data.picture !== 'string') {
-      throw new Error("Invalid 'picture'");
-    }
-
-    if (typeof data.description !== 'string') {
-      throw new Error("Invalid 'description'");
-    }
-
-    if (!data.categorie || typeof data.categorie !== 'string') {
-      throw new Error("Invalid 'categorie'");
-    }
-
-    if (typeof data.isLate !== 'boolean') {
-      throw new Error("Invalid 'isLate'");
-    }
-
-   
-
-    return true;
-  }
-}

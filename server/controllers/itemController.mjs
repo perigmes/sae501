@@ -30,7 +30,7 @@ export const GetItemById = async (req, res) => {
         return res.status(500).json({ error: "Erreur lors de la récupération des items depuis la base de données" });
     }
    
-}
+  }
 
 export const DeleteStateItem = async (req, res) => {
   let collection = await db.collection('materiel');
@@ -42,4 +42,17 @@ export const DeleteStateItem = async (req, res) => {
       return res.status(500).json({ error: "Erreur lors de la suppression de la propriété 'state'" });
   }
 };
+
+export const EditItem = async (req, res) => {
+  let id = req.params.id;
+  let collection = await db.collection('materiel');
+  console.log(req.body);
+  try {
+      let result = await collection.findOneAndUpdate({ _id: new ObjectId(id) }, { $set: req.body });
+      res.status(200).json({ message: "Item modifié avec succès", result });
+  } catch (err) {
+      console.error(err);
+      return res.status(500).json({ error: "Erreur lors de la modification de l'item" });
+  }
+}
 
