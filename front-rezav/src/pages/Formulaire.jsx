@@ -9,8 +9,6 @@ import {addReservation} from "../features/demande/reservationsAsyncAction";
 export const Formulaire = () => {
     const dispatch = useDispatch();
     const stateDataDemande = useSelector(selectDataDemande); // Récupère les informations de la demande
-    console.log(stateDataDemande);
-
     const [membresG, setMembresG] = useState([
         {
             firstName: "Pierrick",

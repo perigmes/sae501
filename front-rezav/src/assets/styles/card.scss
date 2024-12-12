@@ -11,6 +11,49 @@
     flex-flow: column;
     position: relative;
 
+    .error-message {
+        display: flex;
+        width: 75%;
+        position: fixed;
+        bottom: 10%;
+        left: 50%;
+        transform: translate(-50%);
+        padding: 15px 20px;
+        border: solid 2px $dark-red-rezav;
+        border-radius: 7.5px;
+        color: $dark-red-rezav;
+        background: $dark-red-rezav-10;
+        align-items: center;
+        font-family: $main-font;
+        font-weight: $font-weight-500;
+        box-shadow: 0px 1px 7.5px 0px rgba(11, 1, 41, 0.35);
+        gap: 5px;
+
+        .error-txt {
+            font-size: $font-size-14;
+        }
+
+        .material-symbols-rounded {
+            font-size: $font-size-28;
+
+            &.close-btn {
+                transform: scale(1);
+                transition: all 0.3s ease;
+                cursor: pointer;
+                background-color: transparent;
+                border: 0;
+                color: $dark-red-rezav;
+                margin-left: auto;                
+    
+                &:hover {
+                    transform: scale(1.1);
+                }
+            }
+        }
+
+
+    }
+
     /* CSS pour le conteneur boutons de navigations dans le formulaire de reservation */
     .nav-form-btns {
         position: fixed;
@@ -126,6 +169,10 @@
                 position: absolute;
                 bottom: 5px;
                 left: 5px;
+
+                strong {
+                    background-color: $yellow-search-varchar;
+                }
             }
 
             /* CSS pour le hovering de la carte en mode selectionnable */

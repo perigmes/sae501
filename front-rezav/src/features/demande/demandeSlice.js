@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { addReservation, loadMateriel, loadReservation, loadReservations } from './reservationsAsyncAction';
+import { getDatePlusDays } from '../../utils/tools';
 
 const demandeSlice = createSlice({
     name: 'demande',
@@ -7,18 +8,14 @@ const demandeSlice = createSlice({
         objects: [],
         reservations: [],
         objIsSelectable: false,
+        searchBarre: "",
         loading: false,
+        filter: "category",
         dataDemande: {
             id: "",
             userId: "", 
-            startDT: {
-                date: "",
-                time: ""
-            },
-            returnDT: {
-                date: "",
-                time: ""
-            },
+            startDT: getDatePlusDays(2),
+            returnDT: "",
             name: "",
             desc: "",
             justif: "",
@@ -27,21 +24,29 @@ const demandeSlice = createSlice({
             group: [],
             objects: [],
         },
-
         objInfos: {},
-        userId:'',
-        errors:{
+        errors: {
             apiErrorObjectsLoad: null,
             apiErrorReservationLoad: null,
             apiErrorAdd: null,
+            errorFormDemande: false,
         }
     },
     reducers: {
         setObjects: (state, action) => {
             state.objects = action.payload;
         },
-        setObjIsSelectable: (state) => {
-            state.objIsSelectable = !state.objIsSelectable;
+        setSearchBarre: (state, action) => {
+            state.searchBarre = action.payload;
+        },
+        setFilter: (state, action) => {
+            state.filter = action.payload;
+        },
+        setErrorFormDemande: (state, action) => {
+            state.errors.errorFormDemande = action.payload;
+        },
+        setObjIsSelectable: (state, action) => {
+            state.objIsSelectable = action.payload;
         },
         setSelectedObjects: (state, action) => {
             state.dataDemande.objects = action.payload;
@@ -97,6 +102,6 @@ const demandeSlice = createSlice({
 
     }
 });
-export const { setObjects, setObjIsSelectable, setobjects, selectObject, deselectObject, setInfoObject, clearDataDemande, setStartDT, setReturnDT } = demandeSlice.actions;
+export const { setObjects, setSearchBarre, setFilter, setErrorFormDemande, setObjIsSelectable, setobjects, selectObject, deselectObject, setInfoObject, clearDataDemande, setStartDT, setReturnDT } = demandeSlice.actions;
 
 export default demandeSlice.reducer;

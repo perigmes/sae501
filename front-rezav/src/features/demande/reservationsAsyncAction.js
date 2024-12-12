@@ -4,7 +4,6 @@ import { URL_API_RESERVATIONS } from "../../utils/config";
 export const loadMateriel= createAsyncThunk('reservation/loadMaterial', async (_,{rejectWithValue}) => {
 try{
     const response = await axios.get(`${URL_API_RESERVATIONS}/items`);
-    console.log(response.data)
     return response.data;
 }
 catch (error){
@@ -15,7 +14,6 @@ catch (error){
 export const addReservation= createAsyncThunk('reservation/addReservation', async (reservation,{rejectWithValue}) => {
 try{
     const response = await axios.post(`${URL_API_RESERVATIONS}/reservation`, reservation);
-    console.log(response.data)
     return response.data;
 }
 catch (error){

@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { selectObjIsSelectable, selectSelectedObjects } from "../../features/demande/demandeSelector";
+import { selectObjIsSelectable, selectSearchBarre, selectSelectedObjects } from "../../features/demande/demandeSelector";
 import { useState, useEffect } from "react";
 import { deselectObject, selectObject, setInfoObject } from "../../features/demande/demandeSlice";
 
@@ -10,6 +10,8 @@ const ObjectCard = ({ object }) => {
     const isSelected = selectedObjects.includes(id);
     const [cardHeight, setCardHeight] = useState(0);
     const dispatch = useDispatch();
+    const searchBarre = useSelector(selectSearchBarre)
+
 
     const handleClick = () => {
         if (objIsSelectable) {
@@ -20,19 +22,19 @@ const ObjectCard = ({ object }) => {
             }
         } else {
             dispatch(setInfoObject(object));
-            document.querySelectorAll('.object-card').forEach(card => { card.style.pointerEvents = 'none'; });
-            document.querySelector('.rezav-button-1.next-step').style.pointerEvents = 'none';
+
             const objectsList = document.querySelector('.objects-list') ?? null;
             const objectPopup = document.querySelector('.object-popup') ?? null;
-            
+        
             const blurElements = Array.from(objectsList.children).filter(child => child !== objectPopup); // Crée une liste contenant tous les enfants de objects-list à l'exception de la popup
             const headerElement = document.querySelector('.header') ?? null; // Sélectionne le header de l'application
-            const objectsHdrElement = document.querySelector('.objects-hdr') ?? null; // Sélectionne le header du main de l'application
+            const objectsHdrElement = document.querySelector('.main-hdr') ?? null; // Sélectionne le header du main de l'application
             blurElements.push(headerElement, objectsHdrElement); // Ajoute les 2 headers à la liste crée précédemment
             const finalBlurElements = blurElements.filter(element => element !== null); // Filtre les éléments null pour éviter les erreurs
 
             finalBlurElements.forEach(element => {
                 element.style.filter = 'blur(2.5px)'; // Ajoute le filtre de flou sur les éléments
+                element.style.pointerEvents = 'none';
             });          
             document.querySelector('html').style.overflowY = 'hidden'; // Empêche le scroll dans l'application         
         }
@@ -60,6 +62,25 @@ const ObjectCard = ({ object }) => {
         };
     }, [id]);
 
+    const highlightText = (text, highlight) => {
+        if (!highlight) return text;
+
+        const index = text.toLowerCase().indexOf(highlight.toLowerCase());
+        if (index === -1) return text;
+
+        const beforeMatch = text.substring(0, index);
+        const match = text.substring(index, index + highlight.length);
+        const afterMatch = text.substring(index + highlight.length);
+
+        return (
+            <>
+                {beforeMatch}
+                <strong className="highlight">{match}</strong>
+                {afterMatch}
+            </>
+        );
+    };
+
     return (
         <div 
             id={`${id}`} 
@@ -86,7 +107,7 @@ const ObjectCard = ({ object }) => {
                     ></label>
                 </>
             )}
-            <span>{name}</span>
+            <span>{searchBarre.trim().length > 0 ? highlightText(name, searchBarre) : name}</span>
         </div>
     );
 };
