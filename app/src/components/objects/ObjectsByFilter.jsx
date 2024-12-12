@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { selectFilter, selectObjects, selectReservationDates, selectReservations, selectSearchBarre } from "../../features/demande/demandeSelector";
 import ObjectCard from "./ObjectCard";
-import { curriedFilterObjectsByDate } from "../../utils/tools";
+import { curriedFilterObjectsByDate, normalizeString } from "../../utils/tools";
 import { useEffect, useState } from "react";
 
 const ObjectsByFilter = ({ filter }) => {
@@ -20,9 +20,9 @@ const ObjectsByFilter = ({ filter }) => {
             objects = [...filterByDate].filter(object => object.name && object.name.toLowerCase().startsWith(filter.toLowerCase()));
         }
     } else {
-        objects = [...filterByDate].filter(object => object.name && object.name.toLowerCase().includes(filter.toLowerCase()));
+        objects = [...filterByDate].filter(object => object.name && normalizeString(object.name).includes(normalizeString(filter)));
         if (objects.length === 0) {
-            objects = [...filterByDate].filter(object => object.categorie && object.categorie.toLowerCase().includes(filter.toLowerCase()));
+            objects = [...filterByDate].filter(object => object.categorie && normalizeString(object.categorie).includes(normalizeString(filter)));
         }
     }
 

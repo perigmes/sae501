@@ -79,3 +79,10 @@ const filterObjectsByDate = (reservations, startDT, returnDT, objects) =>
 
 // Curryfication de la fonction principale
 export const curriedFilterObjectsByDate = curry(filterObjectsByDate);
+
+export const normalizeString = (str) => {
+  return str
+      .normalize("NFD") // Décompose les lettres accentuées.
+      .replace(/[\u0300-\u036f]/g, "") // Supprime les accents.
+      .toLowerCase(); // Convertit en minuscules.
+}
