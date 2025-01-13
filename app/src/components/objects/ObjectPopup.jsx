@@ -1,32 +1,35 @@
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
+import Modal from "react-modal";
 import { setInfoObject } from "../../features/demande/demandeSlice";
+import { selectObjInfos } from "../../features/demande/demandeSelector";
+import "../../assets/styles/popup.scss";
 
 const ObjectPopup = () => {
     const dispatch = useDispatch();
+    const infoObject= useSelector(selectObjInfos);
 
+    console.log(infoObject)
     const closePopup = () => {
             dispatch(setInfoObject({}));
             
-            const objectsList = document.querySelector('.objects-list') ?? null;
-            const objectPopup = document.querySelector('.object-popup') ?? null;
+           
 
-            const blurElements = Array.from(objectsList.children).filter(child => child !== objectPopup); // Crée une liste contenant tous les enfants de objects-list à l'exception de la popup
-            const headerElement = document.querySelector('.header') ?? null; // Sélectionne le header de l'application
-            const objectsHdrElement = document.querySelector('.main-hdr') ?? null; // Sélectionne le header du main de l'application
-            blurElements.push(headerElement, objectsHdrElement); // Ajoute les 2 headers à la liste crée précédemment
-            const finalBlurElements = blurElements.filter(element => element !== null); // Filtre les éléments null pour éviter les erreurs
-            
-            finalBlurElements.forEach(element => {
-                element.style.filter = ''; // Retire le filtre de flou sur les éléments
-                element.style.pointerEvents = '';
-            });
-
-            document.querySelector('html').style.overflowY = ''; // Autorise le scroll dans l'application    
     };
 
     return(
-        <div className="object-popup" onClick={closePopup}>
-        </div>
+        <Modal className="object-popup" onRequestClose={closePopup} isOpen={infoObject && Object.keys(infoObject).length > 0} >
+            <div className="object-popup-content">
+                <button onClick={closePopup}>X</button>
+
+                <img src={infoObject.picture} alt={infoObject.name} />
+
+                <div> <h1>{infoObject.categorie}</h1>
+                <h2>{infoObject.name}</h2>  
+            <p>{infoObject.description}</p>
+            </div>
+               
+                </div>
+        </Modal>
     );
 };
 
