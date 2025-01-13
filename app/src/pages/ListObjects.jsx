@@ -47,6 +47,7 @@ const ListObjects = () => {
 
     const objIsSelectable = useSelector(selectObjIsSelectable); // Récupérer l'état indiquant si l'objet est sélectionnable
     const stateObjInfos = useSelector(selectObjInfos); // Récupérer les informations sur l'objet sélectionné
+    console.log(stateObjInfos)
     const navigate = useNavigate();
 
     const [errorMessage, setErrorMessage] = useState("");
@@ -96,7 +97,7 @@ const ListObjects = () => {
                 {searchBarre.trim().length > 0 && (
                     <ObjectsByFilter filter={searchBarre} />)}
                 {stateObjInfos && Object.keys(stateObjInfos).length > 0 && (
-                    <ObjectPopup object={stateObjInfos} />
+                    <ObjectPopup  />
                 )}
                 <div className="nav-form-btns">
                     {objIsSelectable && (

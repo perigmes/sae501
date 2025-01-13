@@ -11,21 +11,27 @@
     flex-flow: column;
 
     /* CSS pour le conteneur boutons de navigations dans le formulaire de reservation */
-    
-    /* CSS pour la popup affichant les informations de l'objet */
-    .object-popup {
+    .nav-form-btns {
         position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        max-width: 750px;
-        width: 100%;
-        max-height: 500px;
-        height: 100%;
-        background-color: $white;
-        box-shadow: 0px 1px 7.5px 0px rgba(11, 1, 41, 0.35);
-        border-radius: 8px;
+        right: 25px;
+        bottom: 25px;
+        display: flex;
+        gap: 15px;
+        flex-flow: row nowrap;
+
+        /* CSS pour les boutons de navigations dans le formulaire de reservation */
+        .rezav-button-1 {
+            width: 207.5px;
+            justify-content: center;
+            transition: all 0.3s ease;
+            
+            &.prev-step {
+                background-color: $dark-red-rezav;
+            }
+        }
     }
+
+ 
 
     /* CSS Pour les titres des conteneurs filtrants des objets */
     .objects-filtered-title {
