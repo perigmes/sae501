@@ -4,8 +4,8 @@ const CasStrategy = require('passport-cas').Strategy;
 // Stratégie CAS 3.0
 passport.use(new CasStrategy({
     version: 'CAS3.0',
-    ssoBaseURL: 'http://localhost:8080/',
-    serverBaseURL: 'http://localhost:8080/cas',
+    ssoBaseURL: 'http://localhost:8443/cas',
+    serverBaseURL: 'http://localhost:5000',
     validateURL: '/serviceValidate'
   },
   function(profile, done) {
