@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
-import { selectStatusColor } from "../features/tickets/ticketSelector";
+import { selectStatusColor } from "../../features/tickets/ticketSelector";
 import { useDispatch } from "react-redux";
-import { selectReservation } from "../features/tickets/ticketSlice";
+import { selectReservation } from "../../features/tickets/ticketSlice";
 
 
 function Ticket({reservation}){

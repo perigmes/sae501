@@ -28,7 +28,7 @@ const MainHeader = () => {
     useEffect(() => {
         startDT ? setStartValue(dayjs(startDT)) : setStartValue(dayjs(miniDate));
         returnDT ? setReturnValue(dayjs(returnDT)) : setReturnValue(null);
-    }, []);
+    }, [objIsSelectable]);
 
     const [errorMessage, setErrorMessage] = useState("");
     const handleDateChange = (type, newValue) => {
@@ -70,7 +70,6 @@ const MainHeader = () => {
 
         const startError = refStartDate.current.parentElement.classList.contains("error");
         const returnError = refReturnDate.current.parentElement.classList.contains("error");
-        console.log(startError, returnError);
 
         if (errorFormDemande && startError && returnError) {
             setErrorMessage("La date d'emprunt doit être minimum au " + dayjs(miniDate).format('DD/MM/YYYY') + " et la date de retour doit être postérieure à la date d'emprunt.");
@@ -90,7 +89,7 @@ const MainHeader = () => {
     };
 
     return (
-        <header className={`main-hdr${location.pathname === '/list-objects' ? ' list-obj' : ''}${location.pathname === '/list-objects' && objIsSelectable ? ' selectable' : ''}${location.pathname === '/formulaire-reservation' ? ' res-form' : ''}`}>
+        <header className={`main-hdr${location.pathname === '/list-objects' ? ' list-obj' : ''}${location.pathname === '/list-objects' && objIsSelectable ? ' selectable' : ''}${location.pathname === '/formulaire-reservation' ? ' res-form-hdr' : ''}`}>
             <h2 className="page-title">
                 {location.pathname === '/list-objects' ? "Liste du matériel" : "Formulaire de réservation"}
             </h2>
