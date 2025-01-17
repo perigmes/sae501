@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
-import { selectStatusColor } from "../features/tickets/ticketSelector";
-import { selectObjects } from "../features/demande/demandeSelector"
-import OpenPDFButton from './OpenPDFButton';
+import { selectStatusColor } from "../../features/tickets/ticketSelector";
+import { selectObjects } from "../../features/demande/demandeSelector"
+import OpenPDFButton from '../OpenPDFButton';
 
 const TicketDetails = ({ reservation }) => {
 
@@ -12,8 +12,6 @@ const materiels = allObjects.filter((item) => {
     return reservation.items.includes(objectId);
  });
  
-console.log("Materiels: ", materiels)
-
 
 
     const statusColor = useSelector((state) => 

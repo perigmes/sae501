@@ -11,10 +11,6 @@ import dayjs from "dayjs";
     return formatter.format(date);
   };
 
-  export const formatTimeNoSeconds = (timeString) => {
-    return timeString.split(":").slice(0, 2).join(":");
-  }
-
   export const formatDateToLocalISOString = (date) => {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -24,6 +20,23 @@ import dayjs from "dayjs";
 
     return `${year}-${month}-${day}T${hours}:${minutes}`;
 };
+
+export const formatDateToDateHourMinute = dateString => {
+  const date = new Date(dateString);
+
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+
+  return `${day}/${month}/${year}, à ${hours}:${minutes}`;
+};
+
+  export const formatTimeNoSeconds = (timeString) => {
+    return timeString.split(":").slice(0, 2).join(":");
+  }
+
 
 // Créer une date correspondant à aujourdh'hui minuit avec un nombre de jours supplémentaires
 
