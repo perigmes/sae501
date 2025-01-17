@@ -1,12 +1,13 @@
-// Load environment variables
+import express from "express";
+import session from "express-session";
+import passport from "passport";
+import { casLogin, casCallback, logout } from "./cas.mjs";
 import "./loadEnvironment.mjs";
 import express from "express";
 import {router} from "./routes/index.mjs";
 import cors from "cors";
-const PORT = process.env.PORT || 5000;
 
 const app = express();
-
 
 app.use(express.json());
 app.use(cors({
@@ -15,9 +16,50 @@ app.use(cors({
     allowedHeaders: ["Content-Type", "Authorization"], // En-têtes autorisés
   }));
 app.use(router);
+
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+app.use(
+  session({
+    secret: "secret-key", 
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use((req, res, next) => {
+  if (req.isAuthenticated()) {
+    return next(); 
+  }
+  return casLogin(req, res, next);
+});
+app.use((req, res, next) => {
+  console.log(`Requête reçue : ${req.method} ${req.url}`);
+  next();
+});
+
+app.get("/cas/callback", (req, res, next) => {
+  console.log("Route /cas/callback atteinte");
+  console.log("Ticket reçu :", req.query.ticket);
+
+  casCallback(req, res, next); 
+});
+
+app.get("/", (req, res) => {
+  res.send(`Bienvenue ${req.user.username}, vous êtes connecté au backend !`);
+});
+
+app.get("/logout", logout);
+
+const PORT = process.env.PORT || 5000;
+
+
 
 // import express from "express";
 // import session from "express-session";
