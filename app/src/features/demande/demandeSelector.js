@@ -19,3 +19,4 @@ export const selectReservationDates = createSelector(
     })
 );
 export const selectObjInfos = (state) => state.demande.objInfos;
+export const selectUSerInfos = (state) => state.demande.user;

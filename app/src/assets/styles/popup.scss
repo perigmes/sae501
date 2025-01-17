@@ -1,3 +1,5 @@
+@import 'commun.scss';
+
 .ReactModal__Overlay{
     backdrop-filter: blur(4px);
     display: flex;
@@ -7,13 +9,49 @@
 .ReactModal__Content{
     background-color: #fff;
     border-radius: 10px;
-    padding: 20px;
+    padding: 2rem;
     box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);
-    max-width: 500px;
+    width: 50%;
+    max-width: 90%;
     margin: 0 auto;
     position: relative;
+    box-sizing: border-box;
     z-index: 1000;
     @media (max-width: 768px){
         max-width: 90%;
     }
+}
+.imgObject{
+    width: 40%;
+    height: 40%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.formPopup{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-top:1%;
+    margin-bottom: 1%;
+    gap:2%;
+    .object-infos{
+        width: 50%;
+    }
+    .rezav-input{
+       .w-100 {
+    width: 100%;
+} 
+
+    }
+
+    .fileBtn{
+        display: none;
+    }
+
+   
+}
+.btnFormObject{
+    margin-left: auto;
 }

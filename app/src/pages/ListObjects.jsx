@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import '../assets/styles/card.scss';
 import { formatErrorMessage } from "../utils/tools";
 import { useEffect, useState } from "react";
+import ErrorBoundary from "../components/ErrorBoundary";
 
 
 const ListObjects = () => {
@@ -48,6 +49,7 @@ const ListObjects = () => {
     const objIsSelectable = useSelector(selectObjIsSelectable); // Récupérer l'état indiquant si l'objet est sélectionnable
     const stateObjInfos = useSelector(selectObjInfos); // Récupérer les informations sur l'objet sélectionné
     console.log(stateObjInfos)
+    const IsInfos= stateObjInfos._id??'';
     const navigate = useNavigate();
 
     const [errorMessage, setErrorMessage] = useState("");
@@ -96,8 +98,9 @@ const ListObjects = () => {
                 ))}
                 {searchBarre.trim().length > 0 && (
                     <ObjectsByFilter filter={searchBarre} />)}
-                {stateObjInfos && Object.keys(stateObjInfos).length > 0 && (
-                    <ObjectPopup  />
+                { IsInfos!==""&& (
+                    <ErrorBoundary>
+                    <ObjectPopup  /></ErrorBoundary>
                 )}
                 <div className="nav-form-btns">
                     {objIsSelectable && (
