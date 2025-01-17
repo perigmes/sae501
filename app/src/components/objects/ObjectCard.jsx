@@ -51,10 +51,7 @@ const ObjectCard = ({ object }) => {
     useEffect(() => {
         const resizeCard = () => {
             const card = document.getElementById(_id);
-
             const cardWidth = card.offsetWidth;
-    
-            // Assurez-vous que la hauteur est égale à la largeur
             setCardHeight(cardWidth);
         };
     
