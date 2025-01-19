@@ -3,10 +3,11 @@ import session from "express-session";
 import passport from "passport";
 import { casLogin, casCallback, logout } from "./cas.mjs";
 import "./loadEnvironment.mjs";
-import express from "express";
 import {router} from "./routes/index.mjs";
 import cors from "cors";
-
+import path from 'path';
+import { __dirname } from "./utils/pathHelper.js";
+// Recréation de __dirname
 const app = express();
 
 app.use(express.json());
@@ -15,11 +16,11 @@ app.use(cors({
     methods: ["GET", "POST", "DELETE", "PUT","PATCH"], // Méthodes autorisées
     allowedHeaders: ["Content-Type", "Authorization"], // En-têtes autorisés
   }));
-app.use(router);
 
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+  app.use('/uploads', express.static(path.join(__dirname,'..', 'uploads')));
+  app.use(router);
+
+
 
 app.use(
   session({
@@ -34,11 +35,16 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use((req, res, next) => {
-  if (req.isAuthenticated()) {
-    return next(); 
+  if (req.path.startsWith("/uploads")) {
+    return next(); // Accès autorisé sans authentification
   }
-  return casLogin(req, res, next);
+  if (req.isAuthenticated()) {
+    return next(); // Utilisateur authentifié, on continue
+  }
+  return casLogin(req, res, next); // Redirection vers CAS si non authentifié
 });
+
+// Middleware pour le logging des requêtes
 app.use((req, res, next) => {
   console.log(`Requête reçue : ${req.method} ${req.url}`);
   next();
@@ -58,7 +64,9 @@ app.get("/", (req, res) => {
 app.get("/logout", logout);
 
 const PORT = process.env.PORT || 5000;
-
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
+});
 
 
 // import express from "express";

@@ -48,7 +48,6 @@ const ListObjects = () => {
 
     const objIsSelectable = useSelector(selectObjIsSelectable); // Récupérer l'état indiquant si l'objet est sélectionnable
     const stateObjInfos = useSelector(selectObjInfos); // Récupérer les informations sur l'objet sélectionné
-    console.log(stateObjInfos)
     const IsInfos= stateObjInfos._id??'';
     const navigate = useNavigate();
 

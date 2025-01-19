@@ -1,8 +1,6 @@
-const nodemailer = require("nodemailer");
-
-console.log(process.env.EMAIL_USER);
+import nodemailer from "nodemailer";
 // Fonction pour envoyer un e-mail
-const sendConfirmationEmail = async (reservation) => {
+export const sendConfirmationEmail = async (reservation) => {
     const transporter = nodemailer.createTransport({
         host: "smtp.univ-lemans.fr", // Ou tout autre service SMTP
         secure:true,
@@ -49,7 +47,7 @@ const rejectUrl = `http://localhost:3000/reservation-confirmation/reject/${reser
     return transporter.sendMail(mailOptions);
 };
 
-const sendResponseEmail = async (justification) => {
+export const sendResponseEmail = async (justification) => {
     const transporter = nodemailer.createTransport({
         host: "smtp.univ-lemans.fr", 
         secure:true,
@@ -75,4 +73,3 @@ const sendResponseEmail = async (justification) => {
     // Envoyer l'e-mail
     return transporter.sendMail(mailOptions);
 };
-module.exports = { sendConfirmationEmail,sendResponseEmail };

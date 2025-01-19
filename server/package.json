@@ -8,6 +8,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
+  "type": "module",
+
   "license": "ISC",
   "dependencies": {
     "base64-img": "^1.0.4",

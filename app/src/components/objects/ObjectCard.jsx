@@ -76,7 +76,7 @@ const ObjectCard = ({ object }) => {
             onClick={(e) => { e.stopPropagation(); handleClick(); }} 
             style={{
                 height: `${cardHeight}px`,
-                background: `linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.15) 100%), url(/images/${picture})`}}>
+                background: `linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.15) 100%), url(${picture})`}}>
             {objIsSelectable && (
                 <>
                     <input 

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { addReservation, loadMateriel, loadReservation, updateObject, UpdateObject } from './reservationsAsyncAction';
+import { addReservation, loadMateriel, loadReservation, updateObject } from './reservationsAsyncAction';
 import { getDatePlusDays } from '../../utils/tools';
 
 const demandeSlice = createSlice({
@@ -109,6 +109,7 @@ const demandeSlice = createSlice({
             })
             .addCase(loadMateriel.fulfilled, (state, action) => {
                 state.objects = action.payload;
+                state.objects.map(obj => obj.picture = "http://localhost:5000/" + obj.picture);
                 state.loadingObjects = false;
                 state.errors.apiErrorObjectsLoad = null;
             })
@@ -140,7 +141,14 @@ const demandeSlice = createSlice({
             })
             .addCase(updateObject.pending, (state, action) => {})
             .addCase(updateObject.fulfilled, (state, action) => {
-                state.objects = state.objects.map(obj => obj._id === action.payload._id ? action.payload : obj);
+                state.objects = state.objects.map((obj) => {
+                    if (obj._id === action.payload._id) {
+                        const newObj = {...action.payload, picture: "http://localhost:5000/" + action.payload.picture};
+                        return newObj;
+                    } else {
+                        return obj;
+                    }
+                });
             })
             .addCase(updateObject.rejected, (state, action) => {
                 state.errors.apiErrorObjectsLoad = action.payload;

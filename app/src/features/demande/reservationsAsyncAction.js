@@ -48,20 +48,17 @@ catch{
 export const loadUser= createAsyncThunk('reservation/loadMaterial', async (_,{rejectWithValue}) => {
     try{
         const response = await axios.get(`${URL_API_RESERVATIONS}/items`);
-        console.log(response.data)
         return response.data;
     }
     catch (error){
         return rejectWithValue("L'application est actuellement indisponible, Veuillez réessayer ultérieurement en cas de problème lors du chargement du matériel")
     }
     });
-export const updateObject = createAsyncThunk('reservation/updateObject', async (object, {rejectWithValue}) => {
+export const updateObject = createAsyncThunk('reservation/updateObject', async ({ id, data }, {rejectWithValue}) => {
 
     try {
-        console.log(object)
-        const response = await axios.patch(`${URL_API_RESERVATIONS}/items/${object._id}`, object);
-        console.log(response.data)
-        return response.data;
+                const response = await axios.patch(`${URL_API_RESERVATIONS}/items/${id}`, data);
+        return response.data.result;
     } catch (error) {
         return rejectWithValue(error.response.data.error.message);
     }
