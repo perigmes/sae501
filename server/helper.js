@@ -1,8 +1,6 @@
-const nodemailer = require("nodemailer");
-
-console.log(process.env.EMAIL_USER);
+import nodemailer from "nodemailer";
 // Fonction pour envoyer un e-mail
-const sendConfirmationEmail = async (reservation) => {
+export const sendConfirmationEmail = async (reservation) => {
     const transporter = nodemailer.createTransport({
         host: "smtp.univ-lemans.fr", // Ou tout autre service SMTP
         secure:true,
@@ -12,9 +10,10 @@ const sendConfirmationEmail = async (reservation) => {
             pass: process.env.EMAIL_PASS, // Remplacez par votre mot de passe (utilisez un mot de passe d'application si nécessaire)
         },
     });
-console.log(reservation.idStatus)
+
 const acceptUrl = `http://localhost:3000/reservation-confirmation/accept/${reservation.idStatus}`;
 const rejectUrl = `http://localhost:3000/reservation-confirmation/reject/${reservation.idStatus}`;
+
     const mailOptions = {
         from: process.env.EMAIL_USER,
         to: "perigmes@gmail.com", // Remplacez par l'e-mail de l'étudiant
@@ -48,24 +47,23 @@ const rejectUrl = `http://localhost:3000/reservation-confirmation/reject/${reser
     return transporter.sendMail(mailOptions);
 };
 
-const sendResponseEmail = async (justification) => {
+export const sendResponseEmail = async (justification) => {
     const transporter = nodemailer.createTransport({
-        host: "smtp.univ-lemans.fr", // Ou tout autre service SMTP
+        host: "smtp.univ-lemans.fr", 
         secure:true,
         port: 465,
         auth: {
-            user: process.env.EMAIL_USER, // Remplacez par votre e-mail
-            pass: process.env.EMAIL_PASS, // Remplacez par votre mot de passe (utilisez un mot de passe d'application si nécessaire)
+            user: process.env.EMAIL_USER, 
+            pass: process.env.EMAIL_PASS, 
         },
     });
-    console.log("tets",justification)
     const mailOptions = {
         from: "clementine.prouteau.etu@univ-lemans.fr",
-        to: "perigmes@gmail.com", // Remplacez par l'e-mail de l'étudiant
+        to: "perigmes@gmail.com", //A mettre email de l'étudiant
         subject: "Confirmation de réservation",
         html: `
             <h1>Votre réservation a été ${justification?'refusée': 'acceptée'}</h1>
-            <p> ${justification ??'test'}</p>
+            <p> ${justification ??''}</p>
         
             <p>Cordialement,</p>
             <p><em>M Houliere</em></p>
@@ -75,4 +73,3 @@ const sendResponseEmail = async (justification) => {
     // Envoyer l'e-mail
     return transporter.sendMail(mailOptions);
 };
-module.exports = { sendConfirmationEmail,sendResponseEmail };
