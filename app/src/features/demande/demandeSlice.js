@@ -26,7 +26,11 @@ const demandeSlice = createSlice({
       desc: "",
       justif: "",
       plan: "",
-      group: [],
+      group: [{
+        firstName: "Pierrick",
+        lastName: "Breaud",
+        groupeTd: "TD33",
+      }],
       objects: [],
     },
     objInfos: {},
@@ -80,6 +84,9 @@ const demandeSlice = createSlice({
       state.dataDemande.objects = state.dataDemande.objects.filter(
         (selectedId) => selectedId !== id
       );
+    },
+    updateSelectedObjects: (state, action) => {
+      state.dataDemande.objects = action.payload;
     },
     setInfoObject: (state, action) => {
       state.objInfos = action.payload;
@@ -152,6 +159,7 @@ export const {
   setStartDT,
   setReturnDT,
   setFormValidation,
+  updateSelectedObjects,
 } = demandeSlice.actions;
 
 export default demandeSlice.reducer;

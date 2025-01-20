@@ -15,6 +15,7 @@ const ObjectCard = ({ object }) => {
     const searchBarre = useSelector(selectSearchBarre)
 
 
+
     const handleClick = () => {
         if (objIsSelectable) {
             if (isSelected) {

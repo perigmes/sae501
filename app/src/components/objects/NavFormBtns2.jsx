@@ -16,7 +16,7 @@ import '../../assets/styles/nav-form-btns.scss';
 import { addReservation } from "../../features/demande/reservationsAsyncAction";
 import {v4 as uuid} from 'uuid';
 
-const NavFormBtns = () => {
+const NavFormBtns2 = () => {
     const dispatch = useDispatch();
     const location = useLocation();
     const navigate = useNavigate();
@@ -34,21 +34,25 @@ const NavFormBtns = () => {
     const [nextStepTxt, setNextStepTxt] = useState("");
 
     useEffect(() => {
-        if (location.pathname === '/list-objects') {
+        if (formStep === 1) {
             setPrevStepTxt(objIsSelectable ? "Annuler" : "");
             setNextStepTxt(
                 objIsSelectable 
                     ? "Suivant" 
                     : <><i className="material-symbols-rounded">shopping_bag</i>Réserver</>
             );
-        } else if (location.pathname === '/formulaire-reservation') {
+        } else if (formStep === 2) {
             setPrevStepTxt("Précédent");
-            setNextStepTxt(formStep === 1 ? "Suivant" : "Valider ma demande");
+            setNextStepTxt("Suivant");
+        } else if (formStep === 3) {
+            setPrevStepTxt("Précédent");
+            setNextStepTxt("Valider");
         }
+
     }, [location.pathname, objIsSelectable]);
 
     const handleNextClick = () => {
-        if (location.pathname === '/list-objects') {
+        if (location.pathname === '/test') {
             if (!objIsSelectable) {
                 dispatch(setObjIsSelectable(true));
             } else {
@@ -71,7 +75,6 @@ const NavFormBtns = () => {
                 }
 
                 dispatch(setObjIsSelectable(false));
-                navigate('/formulaire-reservation');
             }
         } else if (location.pathname === '/formulaire-reservation' && formStep === 1) {
             if (dataDemande.name.trim().length === 0 ||dataDemande.desc.trim().length === 0 || dataDemande.plan.trim().length === 0 || dataDemande.justif.trim().length === 0) {
@@ -153,4 +156,4 @@ const NavFormBtns = () => {
     );
 };
 
-export default NavFormBtns;
+export default NavFormBtns2;

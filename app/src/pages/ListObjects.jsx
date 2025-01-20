@@ -37,10 +37,8 @@ const ListObjects = () => {
     let filters
     if (filterType === "category") {
         filters = [...new Set([...objects].map((object) => object.categorie))]; //récupère les categories d'objets
-
     } else if (filterType === "alphabet-reverse") {
         filters = Array.from({ length: 26 }, (_, i) => String.fromCharCode(122 - i)); // génère un tableau de 'a' à 'z'
-
     } else if (filterType === "alphabet") {
         filters = Array.from({ length: 26 }, (_, i) => String.fromCharCode(97 + i)); // génère un tableau de 'z' à 'a'
     }
