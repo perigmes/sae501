@@ -104,10 +104,13 @@ const demandeSlice = createSlice({
       state.dataDemande.startDT = action.payload;
     },
     setReturnDT: (state, action) => {
-      state.dataDemande.returnDT = action.payload;
+      state.dataDemande.returnDT = action.payload; // Pierrick le 19/01/2025
     },
     setFormValidation: (state, action) => {
       state.formValidation = action.payload;
+    },
+    updateSelectedObjects: (state, action) => {
+      state.dataDemande.objects = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -186,6 +189,7 @@ export const {
   setReturnDT,
   setFormValidation,
   setSelectedObjects,
+  updateSelectedObjects
 } = demandeSlice.actions;
 
 export default demandeSlice.reducer;
